@@ -310,7 +310,7 @@ function generateRequestUrl(routeName, customParams = {}, baseOverrides = {}) {
 
     // 构建查询字符串
     const queryString = Object.entries(allParams)
-        .map(([key, value]) => `${key}=${value}`)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
         .join('&');
 
     // 完整URL
