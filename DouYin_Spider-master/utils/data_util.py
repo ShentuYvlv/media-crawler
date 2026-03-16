@@ -7,6 +7,49 @@ import requests
 from loguru import logger
 from retry import retry
 
+FIELD_LABELS = {
+    'work_id': '作品id',
+    'work_url': '作品url',
+    'work_type': '作品类型',
+    'title': '作品标题',
+    'desc': '描述',
+    'admire_count': 'admire数量',
+    'digg_count': '点赞数量',
+    'comment_count': '评论数量',
+    'collect_count': '收藏数量',
+    'share_count': '分享数量',
+    'video_addr': '视频地址url',
+    'images': '图片地址url列表',
+    'topics': '标签',
+    'create_time': '上传时间',
+    'video_cover': '视频封面url',
+    'user_url': '用户主页url',
+    'user_id': '用户id',
+    'nickname': '昵称',
+    'author_avatar': '头像url',
+    'user_desc': '用户描述',
+    'following_count': '关注数量',
+    'follower_count': '粉丝数量',
+    'total_favorited': '作品被赞和收藏数量',
+    'aweme_count': '作品数量',
+    'user_age': '用户年龄',
+    'gender': '性别',
+    'ip_location': 'ip归属地',
+}
+
+SEARCH_EXCLUDED_FIELDS = {
+    'following_count',
+    'follower_count',
+    'total_favorited',
+    'aweme_count',
+    'user_age',
+    'gender',
+    'ip_location',
+    'images',
+    'admire_count',
+    'work_id',
+}
+
 
 def norm_str(str):
     new_str = re.sub(r"|[\\/:*?\"<>| ]+", "", str).replace('\n', '').replace('\r', '')
@@ -109,14 +152,21 @@ def handle_work_info(data):
     }
 
 
+def trim_search_work_info(work_info):
+    return {k: v for k, v in work_info.items() if k not in SEARCH_EXCLUDED_FIELDS}
+
+
 def save_to_xlsx(datas, file_path):
+    if not datas:
+        datas = [{}]
     wb = openpyxl.Workbook()
     ws = wb.active
-    headers = ['作品id', '作品url', '作品类型', '作品标题', '描述', 'admire数量', '点赞数量', '评论数量', '收藏数量', '分享数量', '视频地址url', '图片地址url列表', '标签', '上传时间', '视频封面url', '用户主页url', '用户id', '昵称', '头像url', '用户描述', '关注数量', '粉丝数量', '作品被赞和收藏数量', '作品数量', '用户年龄', '性别', 'ip归属地']
+    field_order = list(datas[0].keys())
+    headers = [FIELD_LABELS.get(field, field) for field in field_order]
     ws.append(headers)
     for data in datas:
-        data = {k: norm_text(str(v)) for k, v in data.items()}
-        ws.append(list(data.values()))
+        row = [norm_text(str(data.get(field, ''))) for field in field_order]
+        ws.append(row)
     wb.save(file_path)
     logger.info(f'数据保存至 {file_path}')
 
@@ -137,38 +187,19 @@ def download_media(path, name, url, type):
 
 def save_wrok_detail(work, path):
     with open(f'{path}/detail.txt', mode="w", encoding="utf-8") as f:
-        # 逐行输出到txt里
-        f.write(f"作品id: {work['work_id']}\n")
-        f.write(f"作品url: {work['work_url']}\n")
-        f.write(f"作品类型: {work['work_type']}\n")
-        f.write(f"作品标题: {work['title']}\n")
-        f.write(f"描述: {work['desc']}\n")
-        f.write(f"admire数量: {work['admire_count']}\n")
-        f.write(f"点赞数量: {work['digg_count']}\n")
-        f.write(f"评论数量: {work['comment_count']}\n")
-        f.write(f"收藏数量: {work['collect_count']}\n")
-        f.write(f"分享数量: {work['share_count']}\n")
-        f.write(f"视频地址url: {work['video_addr']}\n")
-        f.write(f"图片地址url列表: {', '.join(work['images'])}\n")
-        f.write(f"标签: {', '.join(work['topics'])}\n")
-        f.write(f"上传时间: {timestamp_to_str(work['create_time'])}\n")
-        f.write(f"视频封面url: {work['video_cover']}\n")
-        f.write(f"用户主页url: {work['user_url']}\n")
-        f.write(f"用户id: {work['user_id']}\n")
-        f.write(f"昵称: {work['nickname']}\n")
-        f.write(f"头像url: {work['author_avatar']}\n")
-        f.write(f"用户描述: {work['user_desc']}\n")
-        f.write(f"关注数量: {work['following_count']}\n")
-        f.write(f"粉丝数量: {work['follower_count']}\n")
-        f.write(f"作品被赞和收藏数量: {work['total_favorited']}\n")
-        f.write(f"作品数量: {work['aweme_count']}\n")
-        f.write(f"用户年龄: {work['user_age']}\n")
-        f.write(f"用户性别: {work['gender']}\n")
-        f.write(f"ip归属地: {work['ip_location']}\n")
+        for key, value in work.items():
+            label = FIELD_LABELS.get(key, key)
+            if key == 'images' and isinstance(value, list):
+                value = ', '.join(value)
+            elif key == 'topics' and isinstance(value, list):
+                value = ', '.join(value)
+            elif key == 'create_time':
+                value = timestamp_to_str(value)
+            f.write(f"{label}: {value}\n")
 
 
 @retry(tries=3, delay=1)
-def download_work(work_info, path, save_choice):
+def download_work(work_info, path, save_choice, save_payload=None):
     work_id = work_info['work_id']
     user_id = work_info['user_id']
     title = work_info['title']
@@ -179,10 +210,12 @@ def download_work(work_info, path, save_choice):
         title = f'无标题'
     save_path = f'{path}/{nickname}_{user_id}/{title}_{work_id}'
     check_and_create_path(save_path)
+    if save_payload is None:
+        save_payload = work_info
     with open(f'{save_path}/info.json', mode='w', encoding='utf-8') as f:
-        f.write(json.dumps(work_info) + '\n')
+        f.write(json.dumps(save_payload, ensure_ascii=False) + '\n')
     work_type = work_info['work_type']
-    save_wrok_detail(work_info, save_path)
+    save_wrok_detail(save_payload, save_path)
     if work_type == '图集' and save_choice in ['media', 'media-image', 'all']:
         for img_index, img_url in enumerate(work_info['images']):
             download_media(save_path, f'image_{img_index}', img_url, 'image')

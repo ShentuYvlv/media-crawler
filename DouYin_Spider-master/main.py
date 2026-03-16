@@ -5,7 +5,7 @@ from loguru import logger
 
 from dy_apis.douyin_api import DouyinAPI
 from utils.common_util import init
-from utils.data_util import handle_work_info, download_work, save_to_xlsx
+from utils.data_util import handle_work_info, trim_search_work_info, download_work, save_to_xlsx
 
 
 class Data_Spider():
@@ -65,7 +65,7 @@ class Data_Spider():
         work_list = self.douyin_apis.get_user_all_work_info(auth, user_url)
         work_info_list = []
         logger.info(f'用户 {user_url} 作品数量: {len(work_list)}')
-        if save_choice == 'all' or save_choice == 'excel':
+        if (save_choice == 'all' or save_choice == 'excel') and excel_name == '':
             excel_name = user_url.split('/')[-1].split('?')[0]
 
         for work_info in work_list:
@@ -96,15 +96,16 @@ class Data_Spider():
         work_info_list = []
         work_list = self.douyin_apis.search_some_general_work(auth, query, require_num, sort_type, publish_time, filter_duration, search_range, content_type)
         logger.info(f'搜索关键词 {query} 作品数量: {len(work_list)}')
-        if save_choice == 'all' or save_choice == 'excel':
+        if (save_choice == 'all' or save_choice == 'excel') and excel_name == '':
             excel_name = query
         for work_info in work_list:
             logger.info(json.dumps(work_info))
             logger.info(f'爬取作品信息 https://www.douyin.com/video/{work_info["aweme_info"]["aweme_id"]}')
-            work_info = handle_work_info(work_info['aweme_info'])
-            work_info_list.append(work_info)
+            full_work_info = handle_work_info(work_info['aweme_info'])
+            search_work_info = trim_search_work_info(full_work_info)
+            work_info_list.append(search_work_info)
             if save_choice == 'all' or 'media' in save_choice:
-                download_work(work_info, base_path['media'], save_choice)
+                download_work(full_work_info, base_path['media'], save_choice, save_payload=search_work_info)
         if save_choice == 'all' or save_choice == 'excel':
             file_path = os.path.abspath(os.path.join(base_path['excel'], f'{excel_name}.xlsx'))
             save_to_xlsx(work_info_list, file_path)
@@ -144,4 +145,3 @@ if __name__ == '__main__':
     content_type = "0"  # 内容形式 0 不限, 1 视频, 2 图文
 
     data_spider.spider_some_search_work(auth, query, require_num, base_path, 'all', sort_type, publish_time, filter_duration, search_range, content_type)
-
