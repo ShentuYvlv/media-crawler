@@ -1,0 +1,14 @@
+# Core runtime for API crawling and live monitoring
+beautifulsoup4
+loguru
+openpyxl
+protobuf==5.27.1
+PyExecJS
+python-dotenv
+requests
+retry
+urllib3
+websocket-client
+
+# Optional helper used by utils/cookie_util.py
+playwright
