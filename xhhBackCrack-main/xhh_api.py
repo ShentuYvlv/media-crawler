@@ -90,15 +90,24 @@ def main() -> int:
     if not args or args[0] in {"-h", "--help"}:
         print("Usage:")
         print("  python xhh_api.py <route> [key=value params]")
+        print("  python xhh_api.py --search <关键词> [key=value params]")
         print("  python xhh_api.py general_search_v1 --query 模拟")
         print("")
         print("Examples:")
+        print("  python xhh_api.py --search 模拟")
         print("  python xhh_api.py general_search_v1 q=模拟")
         print("  python xhh_api.py related_recommend_web link_id=175495445 h_src=FxDNnklDNXqYrPXG7")
         return 0
 
-    route_name = args[0]
-    params = parse_params(args[1:])
+    if args[0] in {"--search", "-s"}:
+        if len(args) < 2:
+            print("missing search keyword", file=sys.stderr)
+            return 1
+        route_name = "general_search_v1"
+        params = {"q": args[1], **parse_params(args[2:])}
+    else:
+        route_name = args[0]
+        params = parse_params(args[1:])
     client = XhhClient()
 
     try:

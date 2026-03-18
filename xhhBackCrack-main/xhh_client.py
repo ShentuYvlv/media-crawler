@@ -11,7 +11,7 @@ from typing import Any
 
 
 BASE_DIR = Path(__file__).resolve().parent
-NODE_BRIDGE = BASE_DIR / "generate_request_json.js"
+NODE_BRIDGE = BASE_DIR / "JS" / "generate_request_json.js"
 
 
 @dataclass
