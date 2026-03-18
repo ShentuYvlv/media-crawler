@@ -8,7 +8,9 @@ import openpyxl
 from bilibili_api import Credential, search, sync
 
 
-DEFAULT_PAGE_SIZE = 20
+DEFAULT_PAGE_SIZE = 30
+RESULTS_PER_WINDOW = 50
+COOLDOWN_SECONDS = 10
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"
 COOKIE_PATH = Path(__file__).resolve().parent / "cookie.json"
 ORDER_MAP = {
@@ -204,7 +206,13 @@ def transform_video_item(item):
 def search_videos(keyword, num, page_size, order, time_range=-1, video_zone_type=None, order_sort=None, time_start=None, time_end=None):
     results = []
     page = 1
+    window_requested = 0
     while len(results) < num:
+        planned_count = min(page_size, num - len(results))
+        if window_requested > 0 and window_requested + planned_count > RESULTS_PER_WINDOW:
+            print(f"已请求约 {window_requested} 条结果，暂停 {COOLDOWN_SECONDS} 秒以降低请求压力...")
+            time.sleep(COOLDOWN_SECONDS)
+            window_requested = 0
         data = fetch_search_page(
             keyword=keyword,
             page=page,
@@ -216,6 +224,7 @@ def search_videos(keyword, num, page_size, order, time_range=-1, video_zone_type
             time_start=time_start,
             time_end=time_end,
         )
+        window_requested += planned_count
         page_items = data.get("result") or []
         if not page_items:
             break
@@ -236,7 +245,7 @@ def build_parser():
     parser = argparse.ArgumentParser(description="Search bilibili videos with bilibili_api and export to Excel.")
     parser.add_argument("keyword", help="Search keyword")
     parser.add_argument("--num", type=int, default=20, help="Number of videos to fetch")
-    parser.add_argument("--page-size", type=int, default=DEFAULT_PAGE_SIZE, help="Search page size")
+    parser.add_argument("--page-size", type=int, default=DEFAULT_PAGE_SIZE, help="Search page size, default 30, max 50")
     parser.add_argument("--order", choices=list(ORDER_MAP.keys()), default="totalrank", help="Search order")
     parser.add_argument(
         "--time-range",
@@ -263,6 +272,10 @@ def main():
         raise SystemExit("cookie.json is missing SESSDATA")
     if bool(args.time_start) != bool(args.time_end):
         raise SystemExit("--time-start and --time-end must be used together")
+    if args.page_size <= 0:
+        raise SystemExit("--page-size must be greater than 0")
+    if args.page_size > RESULTS_PER_WINDOW:
+        raise SystemExit(f"--page-size cannot exceed {RESULTS_PER_WINDOW}")
 
     rows = search_videos(
         keyword=args.keyword,
