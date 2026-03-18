@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 
+from __future__ import annotations
+
 import json
+import re
 import sys
 import urllib.request
+import zipfile
 from datetime import datetime
+from html import unescape
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 from xhh_client import XhhClient
 
@@ -17,6 +23,25 @@ if hasattr(sys.stderr, "reconfigure"):
 
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
+TAG_RE = re.compile(r"<[^>]+>")
+SEARCH_HEADERS = [
+    "平台",
+    "网站链接",
+    "发布时间",
+    "数据",
+    "用户昵称",
+    "具体内容",
+    "作品类型",
+    "作品标题",
+    "点赞数量",
+    "评论数量",
+    "分享数量",
+    "用户ID",
+    "帖子ID",
+    "标签",
+    "更新时间",
+    "是否视频",
+]
 
 
 def parse_params(args: list[str]) -> dict[str, str]:
@@ -37,10 +62,10 @@ def parse_params(args: list[str]) -> dict[str, str]:
     return params
 
 
-def build_output_path(route_name: str) -> Path:
+def build_output_path(route_name: str, suffix: str = ".json") -> Path:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return OUTPUT_DIR / f"{route_name}_{timestamp}.json"
+    return OUTPUT_DIR / f"{route_name}_{timestamp}{suffix}"
 
 
 def save_json(payload: dict, output_path: Path) -> None:
@@ -48,6 +73,196 @@ def save_json(payload: dict, output_path: Path) -> None:
         json.dumps(payload, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+
+def column_letter(index: int) -> str:
+    result = ""
+    current = index
+    while current > 0:
+        current, remainder = divmod(current - 1, 26)
+        result = chr(65 + remainder) + result
+    return result
+
+
+def xml_cell(cell_ref: str, value: object) -> str:
+    if value is None:
+        return f'<c r="{cell_ref}"/>'
+
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return f'<c r="{cell_ref}"><v>{value}</v></c>'
+
+    text = escape(str(value)).replace("\n", "&#10;")
+    return f'<c r="{cell_ref}" t="inlineStr"><is><t xml:space="preserve">{text}</t></is></c>'
+
+
+def save_search_xlsx(rows: list[dict], output_path: Path) -> None:
+    all_rows = [SEARCH_HEADERS] + [[row.get(header, "") for header in SEARCH_HEADERS] for row in rows]
+    widths: list[int] = []
+    for column_index, header in enumerate(SEARCH_HEADERS):
+        values = [header] + [row[column_index] for row in all_rows[1:]]
+        max_length = max(len(str(value)) if value is not None else 0 for value in values)
+        widths.append(min(max(max_length + 2, 12), 80))
+
+    cols_xml = "".join(
+        f'<col min="{index}" max="{index}" width="{width}" customWidth="1"/>'
+        for index, width in enumerate(widths, start=1)
+    )
+
+    row_xml_parts: list[str] = []
+    for row_index, row_values in enumerate(all_rows, start=1):
+        cells_xml = "".join(
+            xml_cell(f"{column_letter(column_index)}{row_index}", value)
+            for column_index, value in enumerate(row_values, start=1)
+        )
+        row_xml_parts.append(f'<row r="{row_index}">{cells_xml}</row>')
+    sheet_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+        f'<cols>{cols_xml}</cols>'
+        f'<sheetData>{"".join(row_xml_parts)}</sheetData>'
+        '</worksheet>'
+    )
+
+    content_types_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+        '<Default Extension="xml" ContentType="application/xml"/>'
+        '<Override PartName="/xl/workbook.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
+        '<Override PartName="/xl/worksheets/sheet1.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
+        '<Override PartName="/xl/styles.xml" '
+        'ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'
+        '</Types>'
+    )
+    rels_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        '<Relationship Id="rId1" '
+        'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" '
+        'Target="xl/workbook.xml"/>'
+        '</Relationships>'
+    )
+    workbook_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
+        'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+        '<sheets><sheet name="搜索结果" sheetId="1" r:id="rId1"/></sheets>'
+        '</workbook>'
+    )
+    workbook_rels_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        '<Relationship Id="rId1" '
+        'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" '
+        'Target="worksheets/sheet1.xml"/>'
+        '<Relationship Id="rId2" '
+        'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" '
+        'Target="styles.xml"/>'
+        '</Relationships>'
+    )
+    styles_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+        '<fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts>'
+        '<fills count="1"><fill><patternFill patternType="none"/></fill></fills>'
+        '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>'
+        '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
+        '<cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs>'
+        '<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>'
+        '</styleSheet>'
+    )
+
+    with zipfile.ZipFile(output_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("[Content_Types].xml", content_types_xml)
+        archive.writestr("_rels/.rels", rels_xml)
+        archive.writestr("xl/workbook.xml", workbook_xml)
+        archive.writestr("xl/_rels/workbook.xml.rels", workbook_rels_xml)
+        archive.writestr("xl/styles.xml", styles_xml)
+        archive.writestr("xl/worksheets/sheet1.xml", sheet_xml)
+
+
+def strip_markup(text: str) -> str:
+    cleaned = TAG_RE.sub("", unescape(text or ""))
+    return " ".join(cleaned.split())
+
+
+def format_time(timestamp: int | str | None) -> str:
+    if not timestamp:
+        return ""
+    try:
+        dt = datetime.fromtimestamp(int(timestamp))
+    except (TypeError, ValueError, OSError):
+        return ""
+    return (
+        f"{dt.year:04d}年{dt.month:02d}月{dt.day:02d}日 "
+        f"{dt.hour:02d}:{dt.minute:02d}:{dt.second:02d}"
+    )
+
+
+def join_tags(info: dict) -> str:
+    names: list[str] = []
+    for topic in info.get("topics", []):
+        name = (topic or {}).get("name")
+        if name and name not in names:
+            names.append(name)
+    for hashtag in info.get("hashtags", []):
+        name = (hashtag or {}).get("name")
+        if name and name not in names:
+            names.append(name)
+    return " | ".join(names)
+
+
+def build_data_summary(info: dict) -> str:
+    like_count = info.get("link_award_num", 0)
+    comment_count = info.get("comment_num", 0)
+    share_count = info.get("forward_num", 0)
+    return f"点赞 {like_count} | 评论 {comment_count} | 分享 {share_count}"
+
+
+def normalize_search_item(item: dict) -> dict | None:
+    if item.get("type") != "link":
+        return None
+
+    info = item.get("info", {})
+    user = info.get("user", {})
+    title = strip_markup(info.get("title", ""))
+    description = strip_markup(info.get("description", ""))
+    content_parts = [part for part in [title, description] if part]
+    update_time = format_time(info.get("modify_at"))
+
+    return {
+        "平台": "小黑盒",
+        "网站链接": info.get("share_url", ""),
+        "发布时间": format_time(info.get("create_at")),
+        "数据": build_data_summary(info),
+        "用户昵称": user.get("username", ""),
+        "具体内容": "\n".join(content_parts),
+        "作品类型": "帖子",
+        "作品标题": title,
+        "点赞数量": info.get("link_award_num", 0),
+        "评论数量": info.get("comment_num", 0),
+        "分享数量": info.get("forward_num", 0),
+        "用户ID": user.get("userid", ""),
+        "帖子ID": info.get("linkid") or info.get("link_id") or "",
+        "标签": join_tags(info),
+        "更新时间": update_time,
+        "是否视频": "是" if info.get("has_video") else "否",
+    }
+
+
+def normalize_search_payload(data: dict, params: dict[str, str]) -> dict:
+    result = data.get("result", {})
+    items = result.get("items", []) if isinstance(result, dict) else []
+    normalized_items = [row for row in (normalize_search_item(item) for item in items) if row]
+    return {
+        "平台": "小黑盒",
+        "接口": "general_search_v1",
+        "关键词": params.get("q", ""),
+        "结果数量": len(normalized_items),
+        "结果": normalized_items,
+    }
 
 
 def http_get(url: str, headers: dict[str, str]) -> tuple[int, str, str]:
@@ -61,20 +276,11 @@ def http_get(url: str, headers: dict[str, str]) -> tuple[int, str, str]:
 def print_summary(route_name: str, data: dict) -> None:
     result = data.get("result")
     if route_name == "general_search_v1" and isinstance(result, dict):
-        items = result.get("items", [])
+        normalized = normalize_search_payload(data, {})
+        items = normalized["结果"]
         print(f"items: {len(items)}")
-        shown = 0
-        for item in items:
-            info = item.get("info", {})
-            title = info.get("title") or ""
-            link_id = info.get("linkid") or info.get("link_id") or ""
-            item_type = item.get("type") or ""
-            if not title:
-                continue
-            print(f"- [{item_type}] {link_id} {title}")
-            shown += 1
-            if shown >= 10:
-                break
+        for row in items[:10]:
+            print(f"- [{row['帖子ID']}] {row['用户昵称']} | {row['作品标题']}")
         return
 
     if isinstance(result, dict):
@@ -146,8 +352,13 @@ def main() -> int:
     print_summary(route_name, payload)
     print("")
 
-    output_path = build_output_path(route_name)
-    save_json(payload, output_path)
+    if route_name == "general_search_v1":
+        normalized = normalize_search_payload(payload, params)
+        output_path = build_output_path(route_name, ".xlsx")
+        save_search_xlsx(normalized["结果"], output_path)
+    else:
+        output_path = build_output_path(route_name)
+        save_json(payload, output_path)
     print(f"saved: {output_path}")
     return 0
 
