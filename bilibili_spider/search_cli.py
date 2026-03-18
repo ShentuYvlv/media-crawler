@@ -145,12 +145,27 @@ def build_credential(cookie_items):
     )
 
 
-def fetch_search_page(keyword, page, page_size, order):
+def fetch_search_page(
+    keyword,
+    page,
+    page_size,
+    order,
+    time_range=-1,
+    video_zone_type=None,
+    order_sort=None,
+    time_start=None,
+    time_end=None,
+):
     return sync(
         search.search_by_type(
             keyword=keyword,
             search_type=search.SearchObjectType.VIDEO,
             order_type=ORDER_MAP[order],
+            time_range=time_range,
+            video_zone_type=video_zone_type,
+            order_sort=order_sort,
+            time_start=time_start,
+            time_end=time_end,
             page=page,
             page_size=page_size,
         )
@@ -186,11 +201,21 @@ def transform_video_item(item):
     }
 
 
-def search_videos(keyword, num, page_size, order):
+def search_videos(keyword, num, page_size, order, time_range=-1, video_zone_type=None, order_sort=None, time_start=None, time_end=None):
     results = []
     page = 1
     while len(results) < num:
-        data = fetch_search_page(keyword=keyword, page=page, page_size=page_size, order=order)
+        data = fetch_search_page(
+            keyword=keyword,
+            page=page,
+            page_size=page_size,
+            order=order,
+            time_range=time_range,
+            video_zone_type=video_zone_type,
+            order_sort=order_sort,
+            time_start=time_start,
+            time_end=time_end,
+        )
         page_items = data.get("result") or []
         if not page_items:
             break
@@ -213,6 +238,16 @@ def build_parser():
     parser.add_argument("--num", type=int, default=20, help="Number of videos to fetch")
     parser.add_argument("--page-size", type=int, default=DEFAULT_PAGE_SIZE, help="Search page size")
     parser.add_argument("--order", choices=list(ORDER_MAP.keys()), default="totalrank", help="Search order")
+    parser.add_argument(
+        "--time-range",
+        type=int,
+        default=-1,
+        help="Video duration filter in minutes bucket. <=10 means 10分钟以下, <=30 means 10-30分钟, <=60 means 30-60分钟, >60 means 60分钟以上.",
+    )
+    parser.add_argument("--video-zone-type", type=int, default=None, help="Video zone tid filter")
+    parser.add_argument("--order-sort", type=int, choices=[0, 1], default=None, help="Sort direction, 0 desc, 1 asc")
+    parser.add_argument("--time-start", default=None, help='Start date, format: YYYY-MM-DD')
+    parser.add_argument("--time-end", default=None, help='End date, format: YYYY-MM-DD')
     parser.add_argument("--excel-name", default="", help="Excel filename without extension")
     parser.add_argument("--cookie-path", default=str(COOKIE_PATH), help="Path to bilibili cookie.json")
     return parser
@@ -226,12 +261,19 @@ def main():
     credential = build_credential(cookie_items)
     if not credential.sessdata:
         raise SystemExit("cookie.json is missing SESSDATA")
+    if bool(args.time_start) != bool(args.time_end):
+        raise SystemExit("--time-start and --time-end must be used together")
 
     rows = search_videos(
         keyword=args.keyword,
         num=args.num,
         page_size=args.page_size,
         order=args.order,
+        time_range=args.time_range,
+        video_zone_type=args.video_zone_type,
+        order_sort=args.order_sort,
+        time_start=args.time_start,
+        time_end=args.time_end,
     )
     if not rows:
         raise SystemExit(f"No bilibili video results for keyword: {args.keyword}")
