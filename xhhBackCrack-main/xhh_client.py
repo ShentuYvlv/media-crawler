@@ -83,5 +83,26 @@ class XhhClient:
         }
         return self.get_json("general_search_v1", **merged)
 
+    def link_tree(
+        self,
+        link_id: str | int,
+        h_src: str,
+        page: int = 1,
+        index: int | None = None,
+        limit: int = 20,
+        is_first: int = 1,
+        owner_only: int = 0,
+    ) -> dict[str, Any]:
+        merged = {
+            "link_id": link_id,
+            "h_src": h_src,
+            "page": page,
+            "index": index if index is not None else page,
+            "limit": limit,
+            "is_first": is_first,
+            "owner_only": owner_only,
+        }
+        return self.get_json("link_tree", **merged)
+
     def related_recommend(self, link_id: str | int, h_src: str) -> dict[str, Any]:
         return self.get_json("related_recommend_web", link_id=link_id, h_src=h_src)

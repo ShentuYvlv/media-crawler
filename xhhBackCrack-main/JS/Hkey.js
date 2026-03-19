@@ -199,7 +199,13 @@ const ROUTES = {
     'link_tree': {
         path: '/bbs/app/link/tree',
         params: {
-            link_id: '' // 需要填写帖子ID
+            h_src: '',
+            link_id: '', // 需要填写帖子ID
+            is_first: '1',
+            page: '1',
+            index: '1',
+            limit: '20',
+            owner_only: '0'
         }
     },
     'comment_list': {
