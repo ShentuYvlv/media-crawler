@@ -88,7 +88,10 @@ class DouYinCrawler(AbstractCrawler):
                 await self.browser_context.add_init_script(path="libs/stealth.min.js")
 
             self.context_page = await self.browser_context.new_page()
-            await self.context_page.goto(self.index_url)
+            # Douyin frequently delays non-critical resources, so waiting for full
+            # page load is brittle. We only need the initial document ready.
+            self.context_page.set_default_navigation_timeout(60 * 1000)
+            await self.context_page.goto(self.index_url, wait_until="domcontentloaded")
 
             self.dy_client = await self.create_douyin_client(httpx_proxy_format)
             if not await self.dy_client.pong(browser_context=self.browser_context):
