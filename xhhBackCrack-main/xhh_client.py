@@ -106,3 +106,20 @@ class XhhClient:
 
     def related_recommend(self, link_id: str | int, h_src: str) -> dict[str, Any]:
         return self.get_json("related_recommend_web", link_id=link_id, h_src=h_src)
+
+    def topic_feeds(
+        self,
+        topic_id: str | int,
+        offset: int = 0,
+        limit: int = 30,
+        sort_filter: str = "",
+        lastval: str = "",
+    ) -> dict[str, Any]:
+        merged = {
+            "topic_id": topic_id,
+            "offset": offset,
+            "limit": limit,
+            "sort_filter": sort_filter,
+            "lastval": lastval,
+        }
+        return self.get_json("topic_feeds", **merged)

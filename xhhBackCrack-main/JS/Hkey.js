@@ -264,6 +264,17 @@ const ROUTES = {
             link_id: '',
             h_src: ''
         }
+    },
+    'topic_feeds': {
+        path: '/bbs/app/topic/feeds',
+        params: {
+            topic_id: '',      // 社区/话题ID
+            offset: '0',       // 偏移量
+            limit: '30',       // 每页数量
+            lastval: '',       // 上一页最后值
+            sort_filter: '',   // 排序方式: hot-rank(热门), 空(最新)
+            dw: '604'          // 设备宽度
+        }
     }
 };
 

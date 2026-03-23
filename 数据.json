@@ -1,0 +1,2645 @@
+{
+    "msg": "",
+    "result": {
+        "lastval": "",
+        "links": [
+            {
+                "has_video": 0,
+                "up": 0,
+                "down": 0,
+                "act_hashtags": [],
+                "hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177490545,
+                "userid": 93050951,
+                "title": "咋办呀",
+                "description": "hym，我又说错话了吗[cube_感动]",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 22,
+                "link_award_num": 10,
+                "create_at": 1774094325,
+                "modify_at": 1774094325,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=2b3471a9fd4e",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/19/bba4b7728343b8a7713d62019e5419db/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/19/2ad2c54aa2188351041a9619d41a7a4d/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/19/bba4b7728343b8a7713d62019e5419db/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/19/2ad2c54aa2188351041a9619d41a7a4d/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 194,
+                            "width": 190,
+                            "height": 190
+                        }
+                    ],
+                    "img_cnt": 2
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "2天前",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 西郊卡卡夫",
+                                "user_id": 93050951,
+                                "user_name": "西郊卡卡夫",
+                                "event_id": "93050951"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177490545"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177490545"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177490545"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "93050951",
+                    "username": "西郊卡卡夫",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2025/12/28/1da47f0d345119f1b9bc19db0fbd4d82.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2025/12/28/1da47f0d345119f1b9bc19db0fbd4d82.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avatar_decoration": {
+                        "src_type": "image",
+                        "src_url": "https://imgheybox.max-c.com/oa/2026/03/10/c3b6598e6153d5f8df42c2e5794e6ded.webp"
+                    },
+                    "level_info": {
+                        "level": 8,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NDkwNTQ1X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "act_hashtags": [],
+                "hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177724308,
+                "userid": 65669520,
+                "title": "大晚上的好压抑啊",
+                "description": "啊啊啊啊啊啊我想吃嘴子，我想谈婆娘，我想玩地球online双人成行招募动画",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 46,
+                "link_award_num": 9,
+                "down": 3,
+                "create_at": 1774236822,
+                "modify_at": 1774236822,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=0b1771ad8e71",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/91ec6588f6476cec84f14978d05878da/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/91ec6588f6476cec84f14978d05878da/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 214,
+                            "height": 214
+                        }
+                    ],
+                    "img_cnt": 1
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "1小时前",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 披萨和汉堡xp爱好者",
+                                "user_id": 65669520,
+                                "user_name": "披萨和汉堡xp爱好者",
+                                "event_id": "65669520"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177724308"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177724308"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177724308"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "is_blacklist": false,
+                    "userid": "65669520",
+                    "username": "披萨和汉堡xp爱好者",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2026/03/23/293f2286f9b36af8543e3128e6a0f385.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2026/03/23/293f2286f9b36af8543e3128e6a0f385.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avatar_decoration": {
+                        "src_type": "image",
+                        "src_url": "https://imgheybox.max-c.com/oa/2026/02/12/dbd33bbfda1c4bb192667c1a7c47dc5d.webp"
+                    },
+                    "level_info": {
+                        "level": 17,
+                        "status": 1
+                    },
+                    "medal": [
+                        {
+                            "level": 0,
+                            "medal_id": 108,
+                            "name": "影视动漫专项 资深作者",
+                            "description": "影视动漫高级作者",
+                            "img_url": "https://imgheybox.max-c.com/oa/2024/09/18/873507e81600e1ff12ef8112f0968cc6.png",
+                            "achieved": 1,
+                            "wear": 1
+                        }
+                    ],
+                    "medals": [
+                        {
+                            "level": 0,
+                            "medal_id": 108,
+                            "name": "影视动漫专项 资深作者",
+                            "description": "影视动漫高级作者",
+                            "img_url": "https://imgheybox.max-c.com/oa/2024/09/18/873507e81600e1ff12ef8112f0968cc6.png",
+                            "achieved": 1,
+                            "wear": 1
+                        },
+                        {
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "资深作者",
+                            "description": "达到作者等级 5 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png",
+                            "achieved": 1
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NzI0MzA4X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "description": "",
+                "is_web": 0,
+                "use_concept_type": 0,
+                "link_award_num": 0,
+                "up": 0,
+                "down": 0,
+                "act_hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177719476,
+                "userid": 61295808,
+                "title": "我好想你..",
+                "link_type": 1,
+                "link_tag": 1,
+                "has_video": 1,
+                "comment_num": 1,
+                "create_at": 1774195796,
+                "modify_at": 1774195796,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=e23471ad7b91",
+                "video_info": {
+                    "url": "https://videoheybox.max-c.com/video/2026/03/22/350c9446ce590d91eff78eb597f13b72.mp4?auth=1774241767-Dwh8ULrk-0-9580800c23cef48bbfa4912c28ec7df5\u0026sign=d98f1262c8187ae392168b4c385997ab\u0026t=69c0c913",
+                    "thumb": "https://imgheybox1.max-c.com/bbs/2026/03/22/adc231ab55d574758ee4f09dd0c03fc0/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/850x1450%3E",
+                    "source_site": "heybox",
+                    "duration": "01:12",
+                    "width": 1920,
+                    "height": 1440
+                },
+                "video_url": "https://videoheybox.max-c.com/video/2026/03/22/350c9446ce590d91eff78eb597f13b72.mp4?auth=1774241767-Dwh8ULrk-0-9580800c23cef48bbfa4912c28ec7df5\u0026sign=d98f1262c8187ae392168b4c385997ab\u0026t=69c0c913",
+                "video_thumb": "https://imgheybox1.max-c.com/bbs/2026/03/22/adc231ab55d574758ee4f09dd0c03fc0/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/850x1450%3E",
+                "duration": "01:12",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "name": "情感",
+                        "hashtag_id": 1829
+                    },
+                    {
+                        "name": "vrchat",
+                        "hashtag_id": 14374
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/adc231ab55d574758ee4f09dd0c03fc0/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/adc231ab55d574758ee4f09dd0c03fc0/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/850x1450%3E"
+                ],
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "type": "stack",
+                            "inset": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 4,
+                                "right": 6
+                            },
+                            "height": 18,
+                            "corner_radius": 2,
+                            "background_color": "#1A004B96#1A66B3FF",
+                            "models": [
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NzE5NDc2X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"vrchat\"}}",
+                                    "text_alignment": 0,
+                                    "attrs": [
+                                        {
+                                            "type": "image",
+                                            "image": "https://imgheybox.max-c.com/oa/2024/07/30/912b6ed8dba7f938a45fe00bddc0d697.png",
+                                            "width": 12,
+                                            "height": 12,
+                                            "corner_radius": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NzE5NDc2X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"vrchat\"}}",
+                                    "text_alignment": 1,
+                                    "attrs": [
+                                        {
+                                            "type": "spacer",
+                                            "width": 3
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "vrchat",
+                                            "color": "#64696E#C5C6C7",
+                                            "font_name": "PingFangSC-Regular",
+                                            "font_size": 11,
+                                            "line_height": 16
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "spacer",
+                                    "width": 6
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "12小时前",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 蜜茶H",
+                                "user_id": 61295808,
+                                "user_name": "蜜茶H",
+                                "event_id": "61295808"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177719476"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177719476"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177719476"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "61295808",
+                    "username": "蜜茶H",
+                    "avatar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_3.png?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://cdn.max-c.com/heybox/profile/avatar/heygirl_3.png?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 15,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "story_style": true,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fc29ydF9maWx0ZXJfX2hvdC1yYW5rX19yZXF1ZXN0X2lkX183Qzk1OTFDNEEzQTZERjYzNjNBQUZCRjAwRUM1OUY1Rl9fdG9waWNfaWRzX180MTYxNThfX3R5cGVfdjJfXzRfX2xpbmtfaWRfXzE3NzcxOTQ3Ng=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "act_hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177365309,
+                "userid": 86181992,
+                "title": "【分手后杂谈8】",
+                "description": "我和他都是对方的初恋，互相暗恋两年在一起三年，最后他跟我提出分开。我其实一开始很绝望，也纠缠了很久(或者直到现在也还在纠缠)，吃不下饭，闻见味道就像吐，每天以泪洗面，眼睛没有一天是不红肿的，恨自己太蠢，无限压力自己。现在我想当时的感受其实他也曾体会过，因为",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 7,
+                "link_award_num": 28,
+                "down": 3,
+                "create_at": 1773802279,
+                "modify_at": 1773802279,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=738071a8141a",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "name": "情感",
+                        "hashtag_id": 1829
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/17/7a86fea1edd06b8f55ef2f546f3683d3/thumb.png?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/17/7a86fea1edd06b8f55ef2f546f3683d3/thumb.png?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 214,
+                            "height": 214
+                        }
+                    ],
+                    "img_cnt": 1
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "type": "stack",
+                            "inset": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 4,
+                                "right": 6
+                            },
+                            "height": 18,
+                            "corner_radius": 2,
+                            "background_color": "#1A004B96#1A66B3FF",
+                            "models": [
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3MzY1MzA5X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"情感\"}}",
+                                    "text_alignment": 0,
+                                    "attrs": [
+                                        {
+                                            "type": "image",
+                                            "image": "https://imgheybox.max-c.com/oa/2024/07/30/912b6ed8dba7f938a45fe00bddc0d697.png",
+                                            "width": 12,
+                                            "height": 12,
+                                            "corner_radius": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3MzY1MzA5X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"情感\"}}",
+                                    "text_alignment": 1,
+                                    "attrs": [
+                                        {
+                                            "type": "spacer",
+                                            "width": 3
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "情感",
+                                            "color": "#64696E#C5C6C7",
+                                            "font_name": "PingFangSC-Regular",
+                                            "font_size": 11,
+                                            "line_height": 16
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "spacer",
+                                    "width": 6
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "03-18",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: yolk233",
+                                "user_id": 86181992,
+                                "user_name": "yolk233",
+                                "event_id": "86181992"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177365309"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177365309"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177365309"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "86181992",
+                    "username": "yolk233",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2026/01/11/6ad6b8f10fff7add7865313394121452.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2026/01/11/6ad6b8f10fff7add7865313394121452.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 7,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fdG9waWNfaWRzX180MTYxNThfX2xpbmtfaWRfXzE3NzM2NTMwOV9fc29ydF9maWx0ZXJfX2hvdC1yYW5rX19yZXF1ZXN0X2lkX183Qzk1OTFDNEEzQTZERjYzNjNBQUZCRjAwRUM1OUY1Rg=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "down": 0,
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177465985,
+                "userid": 87575655,
+                "title": "来自菲愀酱的【晚安诗】2~小运营的文采进步了嘛？",
+                "description": "如果我能进入你的梦里那我会在梦里描绘一幅画卷建造最美好的时刻在夕阳西下的时候，和你并肩然后在夜晚陪在你的身边我们一起做，美好的梦（小运营今天写的诗怎么样呢~嘿嘿快夸我！）今天也请关注《游戏宅与青春女》即将上线的正式版以及已上线的众筹喵~",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 5,
+                "link_award_num": 13,
+                "create_at": 1773926762,
+                "modify_at": 1773926762,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=f5a671a99d5e",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "act_hashtags": [
+                    {
+                        "name": "游戏人茶话会",
+                        "hashtag_id": 993737
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "name": "游戏人茶话会",
+                        "hashtag_id": 993737,
+                        "start_color": "#1A91FE",
+                        "end_color": "#0575DB",
+                        "sub_title": "活动"
+                    },
+                    {
+                        "name": "steam游戏",
+                        "hashtag_id": 3856
+                    },
+                    {
+                        "name": "单机游戏专项创作计划",
+                        "hashtag_id": 266572
+                    },
+                    {
+                        "name": "盒友日常",
+                        "hashtag_id": 8401
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/web/bbs/2026/03/17/17cd7b3b226d100dce8c7a63e34af0b9/thumb.png?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/web/bbs/2026/03/17/8179542ac0853b1156d8d53c44a74d69/thumb.png?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/web/bbs/2026/03/17/17cd7b3b226d100dce8c7a63e34af0b9/thumb.png?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/web/bbs/2026/03/17/8179542ac0853b1156d8d53c44a74d69/thumb.png?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 194,
+                            "width": 190,
+                            "height": 190
+                        }
+                    ],
+                    "img_cnt": 2
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "type": "stack",
+                            "inset": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 4,
+                                "right": 6
+                            },
+                            "height": 18,
+                            "corner_radius": 2,
+                            "background_color": "#1A004B96#1A66B3FF",
+                            "models": [
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NDY1OTg1X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"游戏人茶话会\"}}",
+                                    "text_alignment": 0,
+                                    "attrs": [
+                                        {
+                                            "type": "image",
+                                            "image": "https://imgheybox.max-c.com/oa/2024/07/30/912b6ed8dba7f938a45fe00bddc0d697.png",
+                                            "width": 12,
+                                            "height": 12,
+                                            "corner_radius": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NDY1OTg1X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"游戏人茶话会\"}}",
+                                    "text_alignment": 1,
+                                    "attrs": [
+                                        {
+                                            "type": "spacer",
+                                            "width": 3
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "游戏人茶话会",
+                                            "color": "#64696E#C5C6C7",
+                                            "font_name": "PingFangSC-Regular",
+                                            "font_size": 11,
+                                            "line_height": 16
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "spacer",
+                                    "width": 6
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "03-19",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 菲愀酱",
+                                "user_id": 87575655,
+                                "user_name": "菲愀酱",
+                                "event_id": "87575655"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177465985"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177465985"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177465985"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "is_blacklist": false,
+                    "userid": "87575655",
+                    "username": "菲愀酱",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2026/03/13/ab235582eface94d1207314fc7da2e29.png?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2026/03/13/ab235582eface94d1207314fc7da2e29.png?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 11,
+                        "status": 1
+                    },
+                    "medal": [
+                        {
+                            "level": 0,
+                            "medal_id": 49,
+                            "name": "厂商认证",
+                            "description": "亦心社 官方账号",
+                            "img_url": "https://imgheybox.max-c.com/oa/2024/08/30/ea44b866375019e5d2a59be1f8eefc4d.png",
+                            "achieved": 1,
+                            "wear": 1
+                        }
+                    ],
+                    "medals": [
+                        {
+                            "level": 0,
+                            "medal_id": 49,
+                            "name": "厂商认证",
+                            "description": "亦心社 官方账号",
+                            "img_url": "https://imgheybox.max-c.com/oa/2024/08/30/ea44b866375019e5d2a59be1f8eefc4d.png",
+                            "achieved": 1,
+                            "wear": 1
+                        },
+                        {
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "高级作者",
+                            "description": "达到作者等级 4 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png",
+                            "achieved": 1
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NDY1OTg1X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "down": 0,
+                "act_hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177682367,
+                "userid": 35522500,
+                "title": "继上文后续，给xdm看情书",
+                "description": "人生第一次写情书，也是第一次送，没想到以失败告终，大家看个乐呵。[cube_哭泣][cube_哭泣][cube_哭泣]",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 24,
+                "link_award_num": 10,
+                "create_at": 1774227508,
+                "modify_at": 1774227508,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=82b371acea9c",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "name": "小丑",
+                        "hashtag_id": 1100
+                    },
+                    {
+                        "name": "情感",
+                        "hashtag_id": 1829
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/193ab5a16926f7ac5871525cbaf0f158/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/193ab5a16926f7ac5871525cbaf0f158/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 214,
+                            "height": 214
+                        }
+                    ],
+                    "img_cnt": 1
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "type": "stack",
+                            "inset": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 4,
+                                "right": 6
+                            },
+                            "height": 18,
+                            "corner_radius": 2,
+                            "background_color": "#1A004B96#1A66B3FF",
+                            "models": [
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fc29ydF9maWx0ZXJfX2hvdC1yYW5rX19yZXF1ZXN0X2lkX183Qzk1OTFDNEEzQTZERjYzNjNBQUZCRjAwRUM1OUY1Rl9fbGlua19pZF9fMTc3NjgyMzY3\",\"tag\":\"小丑\"}}",
+                                    "text_alignment": 0,
+                                    "attrs": [
+                                        {
+                                            "type": "image",
+                                            "image": "https://imgheybox.max-c.com/oa/2024/07/30/912b6ed8dba7f938a45fe00bddc0d697.png",
+                                            "width": 12,
+                                            "height": 12,
+                                            "corner_radius": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fc29ydF9maWx0ZXJfX2hvdC1yYW5rX19yZXF1ZXN0X2lkX183Qzk1OTFDNEEzQTZERjYzNjNBQUZCRjAwRUM1OUY1Rl9fbGlua19pZF9fMTc3NjgyMzY3\",\"tag\":\"小丑\"}}",
+                                    "text_alignment": 1,
+                                    "attrs": [
+                                        {
+                                            "type": "spacer",
+                                            "width": 3
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "小丑",
+                                            "color": "#64696E#C5C6C7",
+                                            "font_name": "PingFangSC-Regular",
+                                            "font_size": 11,
+                                            "line_height": 16
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "spacer",
+                                    "width": 6
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "3小时前",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 黑化的樱岛麻衣",
+                                "user_id": 35522500,
+                                "user_name": "黑化的樱岛麻衣",
+                                "event_id": "35522500"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177682367"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177682367"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177682367"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "35522500",
+                    "username": "黑化的樱岛麻衣",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2026/03/22/f904b64be36af12994d56abf8c514bcd.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2026/03/22/f904b64be36af12994d56abf8c514bcd.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avatar_decoration": {
+                        "src_type": "image",
+                        "src_url": "https://imgheybox.max-c.com/oa/2021/11/05/746fc507de19a801c1e5b1bc50adb3dd.png"
+                    },
+                    "level_info": {
+                        "level": 15,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NjgyMzY3X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "down": 0,
+                "act_hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177259321,
+                "userid": 55018342,
+                "title": "“或许我们都没有错，只是在不同的时间喜欢上了对方。”",
+                "description": "逛街的时候偶然在找到一个恋爱博物馆 发现一个很长很长的纸条……",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 4,
+                "link_award_num": 23,
+                "create_at": 1773718792,
+                "modify_at": 1773718792,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=a7f971a67616",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "name": "女朋友",
+                        "hashtag_id": 944
+                    },
+                    {
+                        "name": "校园",
+                        "hashtag_id": 394
+                    },
+                    {
+                        "name": "爱情",
+                        "hashtag_id": 4643
+                    },
+                    {
+                        "name": "情感",
+                        "hashtag_id": 1829
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/a46228ca9953cc4a363c4f7587f706ea/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/0130f887ae5ab5da7a3f7253e5bc7641/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/23fce7f99eb35fffa01970fba655a619/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/2587d45b72d6a88aa4b808895208b7f7/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/8a077acfe6c62bd77a55543a816c67e7/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/a8914d9b8d56502451b2802be9767ed5/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/a46228ca9953cc4a363c4f7587f706ea/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/0130f887ae5ab5da7a3f7253e5bc7641/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/23fce7f99eb35fffa01970fba655a619/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/2587d45b72d6a88aa4b808895208b7f7/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/398x679%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/8a077acfe6c62bd77a55543a816c67e7/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/398x679%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/16/a8914d9b8d56502451b2802be9767ed5/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/398x679%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 194,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 388,
+                            "width": 190,
+                            "height": 190
+                        }
+                    ],
+                    "more_img": 1,
+                    "img_cnt": 6,
+                    "img_number_right_expression": "2 w 24 - 4 2 * - 3 / 4 + * w 24 - 4 3 1 - * - 3 / +"
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "type": "stack",
+                            "inset": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 4,
+                                "right": 6
+                            },
+                            "height": 18,
+                            "corner_radius": 2,
+                            "background_color": "#1A004B96#1A66B3FF",
+                            "models": [
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3MjU5MzIxX19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"女朋友\"}}",
+                                    "text_alignment": 0,
+                                    "attrs": [
+                                        {
+                                            "type": "image",
+                                            "image": "https://imgheybox.max-c.com/oa/2024/07/30/912b6ed8dba7f938a45fe00bddc0d697.png",
+                                            "width": 12,
+                                            "height": 12,
+                                            "corner_radius": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3MjU5MzIxX19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"女朋友\"}}",
+                                    "text_alignment": 1,
+                                    "attrs": [
+                                        {
+                                            "type": "spacer",
+                                            "width": 3
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "女朋友",
+                                            "color": "#64696E#C5C6C7",
+                                            "font_name": "PingFangSC-Regular",
+                                            "font_size": 11,
+                                            "line_height": 16
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "spacer",
+                                    "width": 6
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "03-17",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 上弦叁",
+                                "user_id": 55018342,
+                                "user_name": "上弦叁",
+                                "event_id": "55018342"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177259321"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177259321"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177259321"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "55018342",
+                    "username": "上弦叁",
+                    "avatar": "https://imgheybox.max-c.com/heybox/avatar/wx/2023/06/17/c9f8aae17e00c7d3f051786c27477fe9.jpg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/heybox/avatar/wx/2023/06/17/c9f8aae17e00c7d3f051786c27477fe9.jpg?imageMogr2/thumbnail/100x100%3E",
+                    "avatar_decoration": {
+                        "src_type": "image",
+                        "src_url": "https://imgheybox.max-c.com/oa/2026/03/10/c3b6598e6153d5f8df42c2e5794e6ded.webp"
+                    },
+                    "level_info": {
+                        "level": 12,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3MjU5MzIxX19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "act_hashtags": [],
+                "hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177714706,
+                "userid": 85969714,
+                "title": "为什么有女生会叫男生兄弟，有点奇怪",
+                "description": "最近和想追的女生聊天，也是我话多，她话少，她总是称呼我兄弟，我感觉有点奇怪，但是说不上来，最后不会真处成兄弟了吧，我们性格很相似，都是很随和的那种人，然后平常也比较宅，希望喝油帮帮我",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 55,
+                "link_award_num": 9,
+                "down": 2,
+                "create_at": 1774241354,
+                "modify_at": 1774241354,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=cfc471ad68ef",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/39baea85d19aa4466728d13895371b88/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/22/39baea85d19aa4466728d13895371b88/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/850x1450%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 343,
+                            "height": 214
+                        }
+                    ],
+                    "img_cnt": 1
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "6分钟前",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: IWAITyou",
+                                "user_id": 85969714,
+                                "user_name": "IWAITyou",
+                                "event_id": "85969714"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177714706"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177714706"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177714706"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "85969714",
+                    "username": "IWAITyou",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2025/08/18/262a73d9152617110fee2ac4565a298d.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2025/08/18/262a73d9152617110fee2ac4565a298d.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 10,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fc29ydF9maWx0ZXJfX2hvdC1yYW5rX19yZXF1ZXN0X2lkX183Qzk1OTFDNEEzQTZERjYzNjNBQUZCRjAwRUM1OUY1Rl9fdG9waWNfaWRzX180MTYxNThfX2xpbmtfaWRfXzE3NzcxNDcwNg=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "act_hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177520936,
+                "userid": 65098771,
+                "title": "xdm这种女生怎么追啊",
+                "description": "人家好像已经有喜欢的男生了，她男朋友帮她注册了steam，陪她玩双人成行，她又送她男朋友gpw，感情可好了，xdm我还有机会吗[cube_摸摸头][cube_摸摸头]",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 30,
+                "link_award_num": 2,
+                "down": 1,
+                "create_at": 1774098453,
+                "modify_at": 1774098453,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=535071aa7405",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "name": "女朋友",
+                        "hashtag_id": 944
+                    },
+                    {
+                        "name": "双人成行",
+                        "hashtag_id": 9066
+                    },
+                    {
+                        "name": "爱情",
+                        "hashtag_id": 4643
+                    },
+                    {
+                        "name": "情感",
+                        "hashtag_id": 1829
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/c53967c31a1bf90dd63613d848b90302/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/c53967c31a1bf90dd63613d848b90302/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 214,
+                            "height": 214
+                        }
+                    ],
+                    "img_cnt": 1
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "type": "stack",
+                            "inset": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 4,
+                                "right": 6
+                            },
+                            "height": 18,
+                            "corner_radius": 2,
+                            "background_color": "#1A004B96#1A66B3FF",
+                            "models": [
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NTIwOTM2X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"双人成行\"}}",
+                                    "text_alignment": 0,
+                                    "attrs": [
+                                        {
+                                            "type": "image",
+                                            "image": "https://imgheybox.max-c.com/oa/2024/07/30/912b6ed8dba7f938a45fe00bddc0d697.png",
+                                            "width": 12,
+                                            "height": 12,
+                                            "corner_radius": 2
+                                        }
+                                    ]
+                                },
+                                {
+                                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/hashtag\",\"params\":{\"h_src\":\"dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NTIwOTM2X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVG\",\"tag\":\"双人成行\"}}",
+                                    "text_alignment": 1,
+                                    "attrs": [
+                                        {
+                                            "type": "spacer",
+                                            "width": 3
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "双人成行",
+                                            "color": "#64696E#C5C6C7",
+                                            "font_name": "PingFangSC-Regular",
+                                            "font_size": 11,
+                                            "line_height": 16
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "spacer",
+                                    "width": 6
+                                }
+                            ]
+                        },
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "2天前",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 东南大学研招网",
+                                "user_id": 65098771,
+                                "user_name": "东南大学研招网",
+                                "event_id": "65098771"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177520936"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177520936"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177520936"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "65098771",
+                    "username": "东南大学研招网",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2024/07/05/dd07d81bc7f31f35348d2ac8e1fbe7d8.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2024/07/05/dd07d81bc7f31f35348d2ac8e1fbe7d8.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 17,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NTIwOTM2X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "title": "",
+                "has_video": 0,
+                "up": 0,
+                "down": 0,
+                "act_hashtags": [],
+                "hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177521655,
+                "userid": 84136375,
+                "description": "女朋友太可爱了我超级喜欢的[cube_开心][cube_开心]",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 3,
+                "link_award_num": 8,
+                "create_at": 1774158936,
+                "modify_at": 1774158936,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=429b71aa76d4",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/c920073f74a4f31bbd7743231cb8c8cc/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/62392dbea2a9c67ac997102821a97653/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/7d3f9884da968bb9f87c063503891a13/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/1e3a300472c6c7453e43a9ce1d89c9de/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/c920073f74a4f31bbd7743231cb8c8cc/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/62392dbea2a9c67ac997102821a97653/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/7d3f9884da968bb9f87c063503891a13/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/20/1e3a300472c6c7453e43a9ce1d89c9de/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/398x679%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 194,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 388,
+                            "width": 190,
+                            "height": 190
+                        }
+                    ],
+                    "more_img": 1,
+                    "img_cnt": 4,
+                    "img_number_right_expression": "2 w 24 - 4 2 * - 3 / 4 + * w 24 - 4 3 1 - * - 3 / +"
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "昨天13:55",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 惰",
+                                "user_id": 84136375,
+                                "user_name": "惰",
+                                "event_id": "84136375"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177521655"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177521655"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177521655"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "84136375",
+                    "username": "惰",
+                    "avatar": "https://imgheybox.max-c.com/heybox/avatar/wx/2025/06/30/3824a22d280a7adccd557964d3c2ec71.jpg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/heybox/avatar/wx/2025/06/30/3824a22d280a7adccd557964d3c2ec71.jpg?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 9,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fbGlua19pZF9fMTc3NTIxNjU1X19zb3J0X2ZpbHRlcl9faG90LXJhbmtfX3JlcXVlc3RfaWRfXzdDOTU5MUM0QTNBNkRGNjM2M0FBRkJGMDBFQzU5RjVGX190b3BpY19pZHNfXzQxNjE1OA=="
+            },
+            {
+                "has_video": 0,
+                "up": 0,
+                "act_hashtags": [],
+                "hashtags": [],
+                "hb_rich_texts": [],
+                "content_tags": [],
+                "list_content_tags": [],
+                "linkid": 177419947,
+                "userid": 83471043,
+                "title": "原来被喜欢是这样…",
+                "description": "今天是我们认识以来第一次见面。这几天一直在下雨，我们不在一个学校，但在同一个城市。见面时已经是中午，就直接去吃饭，选了小菜园。他问我想吃什么，我说想吃红烧肉，剩下的就让他来点。点完以后又把手机递给我问我还想吃什么再点，之后他说去洗手间，我就在座位上等。回来",
+                "link_type": 1,
+                "link_tag": 27,
+                "is_web": 1,
+                "use_concept_type": 1,
+                "comment_num": 16,
+                "link_award_num": 30,
+                "down": 1,
+                "create_at": 1773927971,
+                "modify_at": 1773927971,
+                "share_url": "https://api.xiaoheihe.cn/v3/bbs/app/api/web/share?h_camp=link\u0026h_src=YXBwX3NoYXJl\u0026link_id=fe1671a8e988",
+                "vertical": 0,
+                "topics": [
+                    {
+                        "topic_id": 416158,
+                        "name": "情投一盒",
+                        "pic_url": "https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png",
+                        "app_id": -1,
+                        "hot_value_v2": 12928954
+                    }
+                ],
+                "imgs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/18/1792225fc3a59484d60b9976dcb63c87/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/18/e94c18ae1876e122edf6bc94856febee/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/18/20eb77a462336afd0e497f1eb10556d3/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg"
+                ],
+                "thumbs": [
+                    "https://imgheybox1.max-c.com/bbs/2026/03/18/1792225fc3a59484d60b9976dcb63c87/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/18/e94c18ae1876e122edf6bc94856febee/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E",
+                    "https://imgheybox1.max-c.com/bbs/2026/03/18/20eb77a462336afd0e497f1eb10556d3/thumb.jpeg?imageMogr2/auto-orient/ignore-error/1/format/jpg/thumbnail/540x921%3E"
+                ],
+                "positions": {
+                    "imgs": [
+                        {
+                            "top": 0,
+                            "left": 0,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 194,
+                            "width": 190,
+                            "height": 190
+                        },
+                        {
+                            "top": 0,
+                            "left": 388,
+                            "width": 190,
+                            "height": 190
+                        }
+                    ],
+                    "img_cnt": 3
+                },
+                "img_text_margin": 8,
+                "content_type": 4,
+                "hide_comment": 0,
+                "forward_num": 0,
+                "bottom_rich_text": {
+                    "type": "stack",
+                    "height": 18,
+                    "models": [
+                        {
+                            "attrs": [
+                                {
+                                    "type": "text",
+                                    "text": "03-19",
+                                    "color": "#8C9196#858687",
+                                    "font_name": "PingFangSC-Regular",
+                                    "font_size": 11
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "feedback": [
+                    {
+                        "cate": "favour",
+                        "text": "不感兴趣（选择后将减少相似推荐）",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 8,
+                                "text": "不喜欢该作者: 今天也要炸厨房",
+                                "user_id": 83471043,
+                                "user_name": "今天也要炸厨房",
+                                "event_id": "83471043"
+                            },
+                            {
+                                "reason": 18,
+                                "text": "不喜欢该内容",
+                                "event_id": "177419947"
+                            }
+                        ]
+                    },
+                    {
+                        "cate": "report",
+                        "text": "内容反馈",
+                        "col_count": 2,
+                        "options": [
+                            {
+                                "reason": 23,
+                                "text": "软文广告",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 27,
+                                "text": "标题党",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 28,
+                                "text": "不实炒作",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 29,
+                                "text": "AI生成",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 24,
+                                "text": "内容低俗",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 30,
+                                "text": "分区错误",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 10,
+                                "text": "内容质量差",
+                                "event_id": "177419947"
+                            },
+                            {
+                                "reason": 22,
+                                "text": "内容不适",
+                                "event_id": "177419947"
+                            }
+                        ]
+                    }
+                ],
+                "user": {
+                    "medal": [],
+                    "is_blacklist": false,
+                    "userid": "83471043",
+                    "username": "今天也要炸厨房",
+                    "avatar": "https://imgheybox.max-c.com/avatar/2026/03/18/b89b74949cacc73a84251209dfe7ec3d.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "avartar": "https://imgheybox.max-c.com/avatar/2026/03/18/b89b74949cacc73a84251209dfe7ec3d.jpeg?imageMogr2/thumbnail/100x100%3E",
+                    "level_info": {
+                        "level": 9,
+                        "status": 1
+                    },
+                    "medals": [
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 31,
+                            "name": "个人认证",
+                            "description": "说明：UP主、主播、职业选手等个人认证",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/05/08/b171206ef2c0f9efb99ae94eafcba019.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 55,
+                            "name": "新人作者",
+                            "description": "达到作者等级 1 级",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/254d29440c5e601c85a5f1f9af124c3e.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 47,
+                            "name": "小试牛刀",
+                            "description": "累计消费 10 元",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/c4a0aee5a87444d73e85d4aa9f15fd0d.png"
+                        },
+                        {
+                            "achieved": 0,
+                            "wear": 0,
+                            "level": 0,
+                            "medal_id": 44,
+                            "name": "百科贡献者",
+                            "description": "获得 50 点百科经验",
+                            "img_url": "https://imgheybox.max-c.com/oa/2023/04/18/d375efa8709e69c7e373dc886edd3640.png"
+                        }
+                    ]
+                },
+                "img_show_type": 1,
+                "h_src": "dG9waWNfbGlua19saXN0XzQxNjE1OF9fcmVxdWVzdF9pZF9fN0M5NTkxQzRBM0E2REY2MzYzQUFGQkYwMEVDNTlGNUZfX3RvcGljX2lkc19fNDE2MTU4X19saW5rX2lkX18xNzc0MTk5NDdfX3NvcnRfZmlsdGVyX19ob3QtcmFuaw=="
+            }
+        ],
+        "sort_filter": [
+            {
+                "text": "智能排序",
+                "key": "hot-rank"
+            }
+        ],
+        "filters": [
+            {
+                "show_loading": false,
+                "filters": [],
+                "menu_id": 892,
+                "topic_id": 416158,
+                "title": "综合",
+                "type": "link",
+                "color": "#5662E4",
+                "post_btn": {
+                    "text": "",
+                    "prompt": "",
+                    "img": "",
+                    "disable": false,
+                    "protocol": "heybox://{\"protocol_type\":\"openRouterPath\",\"path\":\"/bbs/post\",\"params\":{\"h_src\":\"dG9waWNfZGV0YWlsX190b3BpY19pZF9fNDE2MTU4\",\"new_style\":1,\"topicinfo\":{\"name\":\"情投一盒\",\"pic_url\":\"https://cdn.max-c.com/heybox/dailynews/img/5dc398fabc80d9da4d5b9956da74a652.png\",\"topic_id\":\"416158\"}},\"need_login\":\"1\"}"
+                }
+            }
+        ]
+    },
+    "status": "ok"
+}
