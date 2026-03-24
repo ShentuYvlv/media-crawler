@@ -18,10 +18,10 @@
 # 使用本代码即表示您同意遵守上述原则和LICENSE中的所有条款。
 
 # Basic configuration
-PLATFORM = "xhs"  # Platform, xhs | dy | ks | bili | wb | tieba | zhihu
+PLATFORM = "tieba"  # Platform, xhs | dy | ks | bili | wb | tieba | zhihu
 KEYWORDS = "编程副业,编程兼职"  # Keyword search configuration, separated by English commas
-LOGIN_TYPE = "qrcode"  # qrcode or phone or cookie
-COOKIES = ""
+LOGIN_TYPE = "cookie"  # qrcode or phone or cookie
+COOKIES = "BIDUPSID=A8F1A672FEC67B5E341188F8DC016780; PSTM=1759630154; BAIDUID=A8F1A672FEC67B5EDC96FA7B2AC7A531:FG=1; BDUSS=y1RVHFDeWxKRDhJMklpaEx1RHBWZjZLSjFNVU82a3lnR2hmSUlWeUFRazVZUWxwSVFBQUFBJCQAAAAAAAAAAAEAAAANQos4YWpzZ3hoZGlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnU4Wg51OFoZ; BDUSS_BFESS=y1RVHFDeWxKRDhJMklpaEx1RHBWZjZLSjFNVU82a3lnR2hmSUlWeUFRazVZUWxwSVFBQUFBJCQAAAAAAAAAAAEAAAANQos4YWpzZ3hoZGlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnU4Wg51OFoZ; STOKEN=46eefd74fd5f810c82006b94c67fd2544b9dad2c9f7cbd3377bfe0ea0ec681d7; TIEBAUID=9d2ff1eb8b167747e01c2f8c"
 CRAWLER_TYPE = (
     "search"  # Crawling type, search (keyword search) | detail (post details) | creator (creator homepage data)
 )

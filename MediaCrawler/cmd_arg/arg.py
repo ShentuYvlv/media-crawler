@@ -251,6 +251,14 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
                 rich_help_panel="Basic Configuration",
             ),
         ] = "",
+        max_notes: Annotated[
+            int,
+            typer.Option(
+                "--max_notes",
+                help="Maximum number of posts/videos to crawl",
+                rich_help_panel="Basic Configuration",
+            ),
+        ] = config.CRAWLER_MAX_NOTES_COUNT,
         max_comments_count_singlenotes: Annotated[
             int,
             typer.Option(
@@ -331,6 +339,7 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
         config.ENABLE_IP_PROXY = enable_ip_proxy_value
         config.IP_PROXY_POOL_COUNT = ip_proxy_pool_count
         config.IP_PROXY_PROVIDER_NAME = ip_proxy_provider_name
+        config.CRAWLER_MAX_NOTES_COUNT = max_notes
 
         # Set platform-specific ID lists for detail/creator mode
         if specified_id_list:
