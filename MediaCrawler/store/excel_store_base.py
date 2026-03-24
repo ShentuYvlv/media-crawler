@@ -168,6 +168,8 @@ class ExcelStoreBase(AbstractStore):
         # Optional sheets for platforms that need them (e.g., Bilibili)
         self.contacts_sheet = None
         self.dynamics_sheet = None
+        self.content_row_by_post_id: Dict[str, int] = {}
+        self.comment_texts_by_post_id: Dict[str, List[str]] = {}
 
         # Generate filename
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -265,6 +267,24 @@ class ExcelStoreBase(AbstractStore):
                 bottom=Side(style='thin')
             )
 
+    def _set_cell_value(self, sheet, row_num: int, headers: List[str], header: str, value: Any):
+        if header not in headers:
+            return
+        col_num = headers.index(header) + 1
+        cell = sheet.cell(row=row_num, column=col_num)
+        if isinstance(value, (list, dict)):
+            value = str(value)
+        elif value is None:
+            value = ""
+        cell.value = value
+        cell.alignment = Alignment(vertical="top", wrap_text=True)
+        cell.border = Border(
+            left=Side(style='thin'),
+            right=Side(style='thin'),
+            top=Side(style='thin'),
+            bottom=Side(style='thin')
+        )
+
     def _platform_name(self) -> str:
         return self.PLATFORM_LABELS.get(self.platform, self.platform)
 
@@ -316,7 +336,7 @@ class ExcelStoreBase(AbstractStore):
     def _build_data_summary(self, content_item: Dict[str, Any]) -> str:
         metrics = [
             ("点赞", self._pick_first(content_item, "liked_count", "like_count")),
-            ("评论", self._pick_first(content_item, "comment_count", "video_comment")),
+            ("评论", self._pick_first(content_item, "comment_count", "video_comment", "total_replay_num")),
             ("收藏", self._pick_first(content_item, "collected_count", "video_favorite_count", "favour_count")),
             ("分享", self._pick_first(content_item, "share_count", "video_share_count")),
             ("投币", self._pick_first(content_item, "video_coin_count")),
@@ -360,12 +380,12 @@ class ExcelStoreBase(AbstractStore):
             "数据": self._build_data_summary(content_item),
             "用户昵称": self._stringify(self._pick_first(content_item, "nickname", "user_name", "author_name", "name")),
             "具体内容": body,
-            "帖子详情": body,
-            "评论": "",
+            "帖子详情": self._stringify(self._pick_first(content_item, "detail_content", "desc", "content", "text", "summary", "title")),
+            "评论": self._stringify(self._pick_first(content_item, "comments")),
             "作品类型": content_type,
             "作品标题": title,
             "点赞数量": self._pick_first(content_item, "liked_count", "like_count"),
-            "评论数量": self._pick_first(content_item, "comment_count", "video_comment"),
+            "评论数量": self._pick_first(content_item, "comment_count", "video_comment", "total_replay_num"),
             "分享数量": self._pick_first(content_item, "share_count", "video_share_count"),
             "用户ID": self._stringify(self._pick_first(content_item, "user_id", "uid", "mid")),
             "帖子ID": post_id,
@@ -391,6 +411,18 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.contents_sheet, normalized_item, headers)
+        row_num = self.contents_sheet.max_row
+        if normalized_item.get("帖子ID"):
+            self.content_row_by_post_id[normalized_item["帖子ID"]] = row_num
+            existing_comments = self.comment_texts_by_post_id.get(normalized_item["帖子ID"], [])
+            if existing_comments:
+                self._set_cell_value(
+                    self.contents_sheet,
+                    row_num,
+                    headers,
+                    "评论",
+                    "\n".join(existing_comments),
+                )
 
         # Get ID from various possible field names
         content_id = content_item.get('note_id') or content_item.get('aweme_id') or content_item.get('video_id') or content_item.get('content_id') or 'N/A'
@@ -413,6 +445,28 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.comments_sheet, comment_item, headers)
+
+        note_id = str(comment_item.get("note_id") or comment_item.get("aweme_id") or comment_item.get("video_id") or comment_item.get("content_id") or "")
+        if note_id:
+            comment_line = self._stringify(
+                self._pick_first(comment_item, "content", "text", "desc", "comment")
+            )
+            nickname = self._stringify(
+                self._pick_first(comment_item, "user_nickname", "nickname", "user_name", "author_name", "name")
+            )
+            if nickname and comment_line:
+                comment_line = f"{nickname}: {comment_line}"
+            if comment_line:
+                self.comment_texts_by_post_id.setdefault(note_id, []).append(comment_line)
+                row_num = self.content_row_by_post_id.get(note_id)
+                if row_num:
+                    self._set_cell_value(
+                        self.contents_sheet,
+                        row_num,
+                        self.CONTENT_HEADERS,
+                        "评论",
+                        "\n".join(self.comment_texts_by_post_id[note_id]),
+                    )
 
         utils.logger.info(f"[ExcelStoreBase] Stored comment to Excel: {comment_item.get('comment_id', 'N/A')}")
 

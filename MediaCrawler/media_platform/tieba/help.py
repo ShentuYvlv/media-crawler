@@ -40,6 +40,64 @@ class TieBaExtractor:
         pass
 
     @staticmethod
+    def _normalize_whitespace(text: str) -> str:
+        return re.sub(r"\s+", " ", text or "").strip()
+
+    def _extract_text_by_selectors(self, selector: Selector, xpaths: List[str]) -> str:
+        for xpath in xpaths:
+            texts = selector.xpath(xpath).getall()
+            merged = self._normalize_whitespace(" ".join(t.strip() for t in texts if t and t.strip()))
+            if merged:
+                return merged
+        return ""
+
+    @staticmethod
+    def _extract_note_id(content_selector: Selector, page_content: str) -> str:
+        only_view_author_link = content_selector.xpath("//*[@id='lzonly_cntn']/@href").get(default='').strip()
+        if only_view_author_link:
+            return only_view_author_link.split("?")[0].split("/")[-1]
+
+        canonical_url = content_selector.xpath("//link[@rel='canonical']/@href").get(default='').strip()
+        if canonical_url:
+            matched = re.search(r"/p/(\d+)", canonical_url)
+            if matched:
+                return matched.group(1)
+
+        og_url = content_selector.xpath("//meta[@property='og:url']/@content").get(default='').strip()
+        if og_url:
+            matched = re.search(r"/p/(\d+)", og_url)
+            if matched:
+                return matched.group(1)
+
+        matched = re.search(r"/p/(\d+)", page_content)
+        return matched.group(1) if matched else ""
+
+    @staticmethod
+    def _extract_reply_stats(content_selector: Selector, page_content: str) -> Tuple[int, int]:
+        thread_num_infos = content_selector.xpath(
+            "//div[@id='thread_theme_5']//li[contains(@class, 'l_reply_num')]//span[contains(@class, 'red')]/text()"
+        ).getall()
+        if len(thread_num_infos) >= 2:
+            total_reply_num = int(thread_num_infos[0].strip() or 0)
+            total_reply_page = int(thread_num_infos[1].strip() or 0)
+            return total_reply_num, total_reply_page
+
+        reply_tab_text = content_selector.xpath(
+            "//div[contains(@class, 'card-tab')]//div[contains(@class, 'tab-item')][1]/text()"
+        ).get(default="")
+        reply_tab_match = re.search(r"全部回复\((\d+)\)", reply_tab_text)
+        if reply_tab_match:
+            total_reply_num = int(reply_tab_match.group(1))
+            total_reply_page = 1 if total_reply_num > 0 else 0
+            return total_reply_num, total_reply_page
+
+        reply_num_match = re.search(r'"reply_num"\s*:\s*"?(?:\d+)"?', page_content)
+        page_num_match = re.search(r'"total_page"\s*:\s*"?(?:\d+)"?', page_content)
+        total_reply_num = int(re.search(r"\d+", reply_num_match.group(0)).group(0)) if reply_num_match else 0
+        total_reply_page = int(re.search(r"\d+", page_num_match.group(0)).group(0)) if page_num_match else 0
+        return total_reply_num, total_reply_page
+
+    @staticmethod
     def extract_search_note_list(page_content: str) -> List[TiebaNote]:
         """
         Extract Tieba post list from keyword search result pages, still missing reply count and reply page data
@@ -114,30 +172,59 @@ class TieBaExtractor:
             Tieba post detail object
         """
         content_selector = Selector(text=page_content)
-        first_floor_selector = content_selector.xpath("//div[@class='p_postlist'][1]")
-        only_view_author_link = content_selector.xpath("//*[@id='lzonly_cntn']/@href").get(default='').strip()
-        note_id = only_view_author_link.split("?")[0].split("/")[-1]
-        # Post reply count and reply page count
-        thread_num_infos = content_selector.xpath(
-            "//div[@id='thread_theme_5']//li[@class='l_reply_num']//span[@class='red']")
+        first_floor_selector = content_selector.xpath(
+            "(//div[contains(@class, 'l_post') and contains(@class, 'j_l_post')])[1]"
+        )
+        if not first_floor_selector:
+            first_floor_selector = content_selector.xpath("//div[@class='p_postlist'][1]")
+        note_id = self._extract_note_id(content_selector, page_content)
+        total_reply_num, total_reply_page = self._extract_reply_stats(content_selector, page_content)
         # IP location and publish time
-        other_info_content = content_selector.xpath(".//div[@class='post-tail-wrap']").get(default="").strip()
+        other_info_content = first_floor_selector.xpath(".//div[@class='post-tail-wrap']").get(default="").strip()
+        # IP location and publish time
         ip_location, publish_time = self.extract_ip_and_pub_time(other_info_content)
-        note = TiebaNote(note_id=note_id, title=content_selector.xpath("//title/text()").get(default='').strip(),
-                         desc=content_selector.xpath("//meta[@name='description']/@content").get(default='').strip(),
+        title = self._extract_text_by_selectors(
+            content_selector,
+            [
+                "//div[contains(@class, 'pb-title-wrap')]//span[contains(@class, 'pb-title')]/text()",
+                "//title/text()",
+            ],
+        )
+        desc = self._extract_text_by_selectors(
+            content_selector,
+            [
+                "//div[contains(@class, 'pb-content-wrap')]//div[contains(@class, 'richtext-item')]//text()",
+                "//meta[@name='description']/@content",
+            ],
+        )
+        if total_reply_num > 0 and total_reply_page == 0:
+            total_reply_page = 1
+
+        note = TiebaNote(note_id=note_id, title=title,
+                         desc=desc,
                          note_url=const.TIEBA_URL + f"/p/{note_id}",
                          user_link=const.TIEBA_URL + first_floor_selector.xpath(
                              ".//a[@class='p_author_face ']/@href").get(default='').strip(),
-                         user_nickname=first_floor_selector.xpath(
-                             ".//a[@class='p_author_name j_user_card']/text()").get(default='').strip(),
-                         user_avatar=first_floor_selector.xpath(".//a[@class='p_author_face ']/img/@src").get(
-                             default='').strip(),
+                         user_nickname=self._extract_text_by_selectors(
+                             first_floor_selector,
+                             [
+                                 ".//a[@class='p_author_name j_user_card']/text()",
+                                 ".//div[contains(@class, 'head-name')]/text()",
+                             ],
+                         ),
+                         user_avatar=self._extract_text_by_selectors(
+                             first_floor_selector,
+                             [
+                                 ".//a[@class='p_author_face ']/img/@src",
+                                 ".//div[contains(@class, 'avatar')]//img[contains(@class, 'avatar-img')]/@src",
+                             ],
+                         ),
                          tieba_name=content_selector.xpath("//a[@class='card_title_fname']/text()").get(
                              default='').strip(), tieba_link=const.TIEBA_URL + content_selector.xpath(
                 "//a[@class='card_title_fname']/@href").get(default=''), ip_location=ip_location,
                          publish_time=publish_time,
-                         total_replay_num=thread_num_infos[0].xpath("./text()").get(default='').strip(),
-                         total_replay_page=thread_num_infos[1].xpath("./text()").get(default='').strip(), )
+                         total_replay_num=total_reply_num,
+                         total_replay_page=total_reply_page, )
         note.title = note.title.replace(f"【{note.tieba_name}】_Baidu Tieba", "")
         return note
 
@@ -151,30 +238,77 @@ class TieBaExtractor:
         Returns:
             List of first-level comment objects
         """
+        selector = Selector(text=page_content)
         xpath_selector = "//div[@class='l_post l_post_bright j_l_post clearfix  ']"
-        comment_list = Selector(text=page_content).xpath(xpath_selector)
+        comment_list = selector.xpath(xpath_selector)
         result: List[TiebaComment] = []
+        if not comment_list:
+            comment_list = selector.xpath(
+                "//div[contains(@class, 'virtual-list-item')][@data-key and not(starts-with(@data-key, 'ad__'))]"
+            )
+
+        page_tieba_name = selector.xpath("//a[@class='card_title_fname']/text()").get(default='').strip()
+        page_tieba_id = selector.xpath("//span[@fid][1]/@fid").get(default="").strip()
         for comment_selector in comment_list:
             comment_field_value: Dict = self.extract_data_field_value(comment_selector)
-            if not comment_field_value:
+            if comment_field_value:
+                tieba_name = comment_selector.xpath("//a[@class='card_title_fname']/text()").get(default='').strip()
+                other_info_content = comment_selector.xpath(".//div[@class='post-tail-wrap']").get(default="").strip()
+                ip_location, publish_time = self.extract_ip_and_pub_time(other_info_content)
+                tieba_comment = TiebaComment(comment_id=str(comment_field_value.get("content").get("post_id")),
+                                             sub_comment_count=comment_field_value.get("content").get("comment_num"),
+                                             content=utils.extract_text_from_html(
+                                                 comment_field_value.get("content").get("content")),
+                                             note_url=const.TIEBA_URL + f"/p/{note_id}",
+                                             user_link=const.TIEBA_URL + comment_selector.xpath(
+                                                 ".//a[@class='p_author_face ']/@href").get(default='').strip(),
+                                             user_nickname=comment_selector.xpath(
+                                                 ".//a[@class='p_author_name j_user_card']/text()").get(default='').strip(),
+                                             user_avatar=comment_selector.xpath(
+                                                 ".//a[@class='p_author_face ']/img/@src").get(default='').strip(),
+                                             tieba_id=str(comment_field_value.get("content").get("forum_id", "")),
+                                             tieba_name=tieba_name, tieba_link=f"https://tieba.baidu.com/f?kw={tieba_name}",
+                                             ip_location=ip_location, publish_time=publish_time, note_id=note_id, )
+                result.append(tieba_comment)
                 continue
-            tieba_name = comment_selector.xpath("//a[@class='card_title_fname']/text()").get(default='').strip()
-            other_info_content = comment_selector.xpath(".//div[@class='post-tail-wrap']").get(default="").strip()
-            ip_location, publish_time = self.extract_ip_and_pub_time(other_info_content)
-            tieba_comment = TiebaComment(comment_id=str(comment_field_value.get("content").get("post_id")),
-                                         sub_comment_count=comment_field_value.get("content").get("comment_num"),
-                                         content=utils.extract_text_from_html(
-                                             comment_field_value.get("content").get("content")),
-                                         note_url=const.TIEBA_URL + f"/p/{note_id}",
-                                         user_link=const.TIEBA_URL + comment_selector.xpath(
-                                             ".//a[@class='p_author_face ']/@href").get(default='').strip(),
-                                         user_nickname=comment_selector.xpath(
-                                             ".//a[@class='p_author_name j_user_card']/text()").get(default='').strip(),
-                                         user_avatar=comment_selector.xpath(
-                                             ".//a[@class='p_author_face ']/img/@src").get(default='').strip(),
-                                         tieba_id=str(comment_field_value.get("content").get("forum_id", "")),
-                                         tieba_name=tieba_name, tieba_link=f"https://tieba.baidu.com/f?kw={tieba_name}",
-                                         ip_location=ip_location, publish_time=publish_time, note_id=note_id, )
+
+            comment_id = comment_selector.xpath("./@data-key").get(default="").strip()
+            content = self._extract_text_by_selectors(
+                comment_selector,
+                [
+                    ".//div[contains(@class, 'pb-rich-text')]//text()",
+                    ".//div[contains(@class, 'comment-content')]//text()",
+                ],
+            )
+            if not comment_id or not content:
+                continue
+
+            desc_texts = [
+                self._normalize_whitespace(text)
+                for text in comment_selector.xpath(".//div[contains(@class, 'comment-desc-left')]//span/text()").getall()
+                if self._normalize_whitespace(text)
+            ]
+            publish_time = desc_texts[1] if len(desc_texts) > 1 else ""
+            ip_location = desc_texts[2] if len(desc_texts) > 2 else ""
+            tieba_comment = TiebaComment(
+                comment_id=comment_id,
+                sub_comment_count=0,
+                content=content,
+                note_url=const.TIEBA_URL + f"/p/{note_id}",
+                user_link="",
+                user_nickname=self._extract_text_by_selectors(
+                    comment_selector, [".//div[contains(@class, 'head-name')]/text()"]
+                ),
+                user_avatar=self._extract_text_by_selectors(
+                    comment_selector, [".//div[contains(@class, 'avatar')]//img[contains(@class, 'avatar-img')]/@src"]
+                ),
+                tieba_id=page_tieba_id,
+                tieba_name=page_tieba_name,
+                tieba_link=f"https://tieba.baidu.com/f?kw={page_tieba_name}" if page_tieba_name else "",
+                ip_location=ip_location,
+                publish_time=publish_time,
+                note_id=note_id,
+            )
             result.append(tieba_comment)
         return result
 
