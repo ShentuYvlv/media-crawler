@@ -20,7 +20,7 @@
 import asyncio
 import json
 from typing import Any, Callable, Dict, List, Optional, Union
-from urllib.parse import urlencode, quote
+from urllib.parse import urlencode, quote, parse_qs, unquote, urlparse
 
 import requests
 from playwright.async_api import BrowserContext, Page
@@ -57,6 +57,8 @@ class BaiduTieBaClient(AbstractApiClient):
         self._page_extractor = TieBaExtractor()
         self.default_ip_proxy = default_ip_proxy
         self.playwright_page = playwright_page  # Playwright page object
+        self._latest_creator_sidebar_data: Optional[Dict[str, Any]] = None
+        self._latest_creator_thread_data: Optional[Dict[str, Any]] = None
 
     def _sync_request(self, method, url, proxy=None, **kwargs):
         """
@@ -329,6 +331,33 @@ class BaiduTieBaClient(AbstractApiClient):
 
             # Extract post details
             note_detail = self._page_extractor.extract_note_detail(page_content)
+            cached_thread_info = self._get_latest_thread_info(note_id)
+            if not note_detail.note_id:
+                note_detail.note_id = str(note_id)
+            if not note_detail.note_url or note_detail.note_url.rstrip("/") == f"{self._host}/p":
+                note_detail.note_url = note_url
+            if not note_detail.tieba_name and cached_thread_info.get("fname"):
+                note_detail.tieba_name = cached_thread_info.get("fname", "")
+                note_detail.tieba_link = f"{self._host}/f?kw={quote(note_detail.tieba_name)}"
+            if not note_detail.user_nickname:
+                author = cached_thread_info.get("author", {})
+                note_detail.user_nickname = author.get("name_show") or author.get("name") or ""
+                portrait = author.get("portrait", "")
+                if portrait and (
+                    not note_detail.user_link or note_detail.user_link.rstrip("/") == self._host
+                ):
+                    note_detail.user_link = f"{self._host}/home/main?id={quote(portrait)}"
+                if not note_detail.user_avatar:
+                    note_detail.user_avatar = (
+                        author.get("user_show_info", {})
+                        .get("feed_head", {})
+                        .get("image_data", {})
+                        .get("img_url", "")
+                    )
+            if note_detail.total_replay_num == 0 and cached_thread_info.get("reply_num") is not None:
+                note_detail.total_replay_num = int(cached_thread_info.get("reply_num") or 0)
+            if note_detail.total_replay_num > 0 and note_detail.total_replay_page == 0:
+                note_detail.total_replay_page = 1
             return note_detail
 
         except Exception as e:
@@ -543,11 +572,34 @@ class BaiduTieBaClient(AbstractApiClient):
         utils.logger.info(f"[BaiduTieBaClient.get_creator_info_by_url] Accessing creator homepage: {creator_url}")
 
         try:
-            # Use Playwright to access creator homepage
-            await self.playwright_page.goto(creator_url, wait_until="domcontentloaded")
+            self._latest_creator_sidebar_data = None
+            self._latest_creator_thread_data = None
 
-            # Wait for page loading, using delay setting from config file
-            await asyncio.sleep(config.CRAWLER_MAX_SLEEP_SEC)
+            try:
+                async with self.playwright_page.expect_response(
+                    lambda resp: "c/u/pc/homeSidebarRight" in resp.url,
+                    timeout=15000,
+                ) as sidebar_waiter, self.playwright_page.expect_response(
+                    lambda resp: "c/u/feed/myThread" in resp.url and "pn=1" in resp.url,
+                    timeout=15000,
+                ) as thread_waiter:
+                    # Use Playwright to access creator homepage
+                    await self.playwright_page.goto(creator_url, wait_until="domcontentloaded")
+
+                    # Wait for page loading, using delay setting from config file
+                    await asyncio.sleep(config.CRAWLER_MAX_SLEEP_SEC)
+
+                sidebar_resp = await sidebar_waiter.value
+                thread_resp = await thread_waiter.value
+                self._latest_creator_sidebar_data = json.loads(await sidebar_resp.text())
+                self._latest_creator_thread_data = json.loads(await thread_resp.text())
+            except Exception as e:
+                utils.logger.warning(
+                    f"[BaiduTieBaClient.get_creator_info_by_url] Failed to capture creator API response: {e}"
+                )
+                # Fallback to simple page navigation when API capture times out.
+                await self.playwright_page.goto(creator_url, wait_until="domcontentloaded")
+                await asyncio.sleep(config.CRAWLER_MAX_SLEEP_SEC)
 
             # Get page HTML content
             page_content = await self.playwright_page.content()
@@ -558,6 +610,67 @@ class BaiduTieBaClient(AbstractApiClient):
         except Exception as e:
             utils.logger.error(f"[BaiduTieBaClient.get_creator_info_by_url] Failed to get creator homepage: {e}")
             raise
+
+    @staticmethod
+    def _extract_creator_portrait_from_url(creator_url: str) -> str:
+        parsed = urlparse(creator_url)
+        query = parse_qs(parsed.query)
+        portrait = query.get("id", [""])[0]
+        return unquote(portrait).strip()
+
+    def get_latest_creator_info(self, creator_url: str) -> Optional[TiebaCreator]:
+        data = self._latest_creator_sidebar_data or {}
+        user = data.get("data", {}).get("user", {})
+        if not user:
+            return None
+
+        portrait = user.get("portrait") or self._extract_creator_portrait_from_url(creator_url)
+        nickname = user.get("name_show") or user.get("name") or ""
+        gender = "Unknown"
+        if user.get("sex") == 1:
+            gender = "Male"
+        elif user.get("sex") == 2:
+            gender = "Female"
+
+        avatar = (
+            user.get("user_show_info", {})
+            .get("feed_head", {})
+            .get("image_data", {})
+            .get("img_url", "")
+        )
+
+        return TiebaCreator(
+            user_id=portrait,
+            user_name=user.get("name") or nickname,
+            nickname=nickname,
+            gender=gender,
+            avatar=avatar,
+            ip_location=user.get("ip_address", ""),
+            follows=int(user.get("concern_num") or 0),
+            fans=int(user.get("fans_num") or 0),
+            registration_duration=(f"{user.get('tb_age')}年" if user.get("tb_age") else ""),
+        )
+
+    def get_latest_creator_thread_ids(self) -> List[str]:
+        data = self._latest_creator_thread_data or {}
+        thread_list = data.get("data", {}).get("list", [])
+        result: List[str] = []
+        for item in thread_list:
+            thread_info = item.get("thread_info", {})
+            thread_id = thread_info.get("tid") or thread_info.get("id")
+            if thread_id:
+                result.append(str(thread_id))
+        return result
+
+    def _get_latest_thread_info(self, note_id: str) -> Dict[str, Any]:
+        data = self._latest_creator_thread_data or {}
+        thread_list = data.get("data", {}).get("list", [])
+        for item in thread_list:
+            thread_info = item.get("thread_info", {})
+            thread_id = str(thread_info.get("tid") or thread_info.get("id") or "")
+            if thread_id == str(note_id):
+                return thread_info
+        return {}
 
     async def get_notes_by_creator(self, user_name: str, page_number: int) -> Dict:
         """
@@ -610,6 +723,7 @@ class BaiduTieBaClient(AbstractApiClient):
         callback: Optional[Callable] = None,
         max_note_count: int = 0,
         creator_page_html_content: str = None,
+        creator_url: str = "",
     ) -> List[TiebaNote]:
         """
         Get all creator posts by creator username
@@ -625,14 +739,27 @@ class BaiduTieBaClient(AbstractApiClient):
         """
         # Baidu Tieba is special, the first 10 posts are directly displayed on the homepage and need special handling, cannot be obtained through API
         result: List[TiebaNote] = []
-        if creator_page_html_content:
-            thread_id_list = (self._page_extractor.extract_tieba_thread_id_list_from_creator_page(creator_page_html_content))
+        thread_id_list = self.get_latest_creator_thread_ids()
+        if not thread_id_list and creator_page_html_content:
+            thread_id_list = self._page_extractor.extract_tieba_thread_id_list_from_creator_page(creator_page_html_content)
+
+        if thread_id_list:
             utils.logger.info(f"[BaiduTieBaClient.get_all_notes_by_creator] got user_name:{user_name} thread_id_list len : {len(thread_id_list)}")
-            note_detail_task = [self.get_note_by_id(thread_id) for thread_id in thread_id_list]
-            notes = await asyncio.gather(*note_detail_task)
+            if max_note_count > 0:
+                thread_id_list = thread_id_list[:max_note_count]
+            notes: List[TiebaNote] = []
+            for thread_id in thread_id_list:
+                try:
+                    note = await self.get_note_by_id(thread_id)
+                    notes.append(note)
+                except Exception as e:
+                    utils.logger.error(
+                        f"[BaiduTieBaClient.get_all_notes_by_creator] Skip thread {thread_id} because detail fetch failed: {e}"
+                    )
             if callback:
                 await callback(notes)
             result.extend(notes)
+            return result
 
         notes_has_more = 1
         page_number = 1
@@ -648,12 +775,22 @@ class BaiduTieBaClient(AbstractApiClient):
             notes = notes_data["thread_list"]
             utils.logger.info(f"[WeiboClient.get_all_notes_by_creator] got user_name:{user_name} notes len : {len(notes)}")
 
-            note_detail_task = [self.get_note_by_id(note['thread_id']) for note in notes]
-            notes = await asyncio.gather(*note_detail_task)
+            detail_notes: List[TiebaNote] = []
+            for note in notes:
+                thread_id = str(note.get("thread_id") or "")
+                if not thread_id:
+                    continue
+                try:
+                    detail_note = await self.get_note_by_id(thread_id)
+                    detail_notes.append(detail_note)
+                except Exception as e:
+                    utils.logger.error(
+                        f"[BaiduTieBaClient.get_all_notes_by_creator] Skip thread {thread_id} because detail fetch failed: {e}"
+                    )
             if callback:
-                await callback(notes)
+                await callback(detail_notes)
             await asyncio.sleep(crawl_interval)
-            result.extend(notes)
+            result.extend(detail_notes)
             page_number += 1
             total_get_count += page_per_count
         return result

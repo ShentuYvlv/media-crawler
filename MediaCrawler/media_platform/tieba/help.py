@@ -51,6 +51,14 @@ class TieBaExtractor:
                 return merged
         return ""
 
+    def _extract_first_value(self, selector: Selector, xpaths: List[str]) -> str:
+        for xpath in xpaths:
+            value = selector.xpath(xpath).get(default="")
+            normalized = self._normalize_whitespace(value)
+            if normalized:
+                return normalized
+        return ""
+
     @staticmethod
     def _extract_note_id(content_selector: Selector, page_content: str) -> str:
         only_view_author_link = content_selector.xpath("//*[@id='lzonly_cntn']/@href").get(default='').strip()
@@ -357,8 +365,13 @@ class TieBaExtractor:
             Tieba creator object
         """
         selector = Selector(text=html_content)
-        user_link_selector = selector.xpath("//p[@class='space']/a")
-        user_link: str = user_link_selector.xpath("./@href").get(default='')
+        user_link = self._extract_first_value(
+            selector,
+            [
+                "//p[contains(@class, 'space')]/a/@href",
+                "//a[contains(@href, '/home/main?un=')][1]/@href",
+            ],
+        )
         user_link_params: Dict = parse_qs(unquote(user_link.split("?")[-1]))
         user_name = user_link_params.get("un")[0] if user_link_params.get("un") else ""
         user_id = user_link_params.get("id")[0] if user_link_params.get("id") else ""
@@ -368,11 +381,72 @@ class TieBaExtractor:
         if len(follow_fans_selector) == 2:
             follows, fans = self.extract_follow_and_fans(follow_fans_selector)
         user_content = userinfo_userdata_selector.get(default='')
+        nickname = self._extract_first_value(
+            selector,
+            [
+                ".//span[contains(@class, 'userinfo_username')]/text()",
+                "//title/text()",
+            ],
+        )
+        if nickname.endswith("的贴吧"):
+            nickname = nickname[:-3]
+        avatar = self._extract_first_value(
+            selector,
+            [
+                ".//div[contains(@class, 'userinfo_left_head')]//img/@src",
+                "//img[contains(@src, '/portrait/item/')][1]/@src",
+            ],
+        )
+        if not user_id:
+            owner_id_patterns = [
+                r'/home/(?:fans|concern)\?id=(tb\.[^"&]+)',
+                r'"portrait":"(tb\.[^"?&]+)',
+                r'/home/main\?(?:un=[^"&]*&(?:amp;)?|id=)(tb\.[^"&]+)',
+            ]
+            for pattern in owner_id_patterns:
+                matched = re.search(pattern, html_content)
+                if matched:
+                    user_id = html.unescape(matched.group(1))
+                    break
+
+        if not user_name:
+            owner_name_patterns = [
+                r'class="btn-send-gift [^"]*"[^>]*data-gift="[^"]*&quot;name&quot;:&quot;([^"&]+)',
+                r'/home/main\?un=([^"&]+)&(?:amp;)?id=' + re.escape(user_id) if user_id else "",
+                r'"name":"([^"]+)"',
+            ]
+            for pattern in owner_name_patterns:
+                if not pattern:
+                    continue
+                matched = re.search(pattern, html_content)
+                if matched:
+                    user_name = html.unescape(unquote(matched.group(1))).strip()
+                    break
+
+        if nickname.endswith("-百度贴吧"):
+            nickname = nickname[:-5].strip()
+        if not nickname:
+            title_match = re.search(r"<title>\s*([^<]+?)的贴吧\s*</title>", html_content)
+            if title_match:
+                nickname = html.unescape(title_match.group(1)).strip()
+
+        if not avatar:
+            avatar_match = re.search(r'https?://[^"\']+/sys/portrait/item/[^"\']+', html_content)
+            if avatar_match:
+                avatar = html.unescape(avatar_match.group(0))
+
+        if not follows:
+            follow_match = re.search(r"他关注的人<span class=\"concern_num\">\(<a[^>]*>(\d+)</a>\)</span>", html_content)
+            follows = int(follow_match.group(1)) if follow_match else 0
+        if not fans:
+            fans_match = re.search(r"关注他的人<span class=\"concern_num\">\(<a[^>]*>(\d+)</a>\)</span>", html_content)
+            fans = int(fans_match.group(1)) if fans_match else 0
+        if not user_name and nickname:
+            user_name = nickname
+
         return TiebaCreator(user_id=user_id, user_name=user_name,
-                            nickname=selector.xpath(".//span[@class='userinfo_username ']/text()").get(
-                                default='').strip(),
-                            avatar=selector.xpath(".//div[@class='userinfo_left_head']//img/@src").get(
-                                default='').strip(),
+                            nickname=nickname,
+                            avatar=avatar,
                             gender=self.extract_gender(user_content),
                             ip_location=self.extract_ip(user_content),
                             follows=follows,
@@ -398,6 +472,15 @@ class TieBaExtractor:
             "//ul[@class='new_list clearfix']//div[@class='thread_name']/a[1]/@href"
         )
         thread_url_list = selector.xpath(xpath_selector).getall()
+        if not thread_url_list:
+            thread_url_list = re.findall(r'/p/(\d+)\?pid=', html_content)
+            dedup_thread_ids = []
+            seen = set()
+            for thread_id in thread_url_list:
+                if thread_id not in seen:
+                    seen.add(thread_id)
+                    dedup_thread_ids.append(thread_id)
+            return dedup_thread_ids
         for thread_url in thread_url_list:
             thread_id = thread_url.split("?")[0].split("/")[-1]
             thread_id_list.append(thread_id)

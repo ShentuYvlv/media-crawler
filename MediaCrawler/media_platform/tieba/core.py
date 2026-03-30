@@ -367,8 +367,9 @@ class TieBaCrawler(AbstractCrawler):
             creator_page_html_content = await self.tieba_client.get_creator_info_by_url(
                 creator_url=creator_url
             )
-            creator_info: TiebaCreator = self._page_extractor.extract_creator_info(
-                creator_page_html_content
+            creator_info: TiebaCreator = (
+                self.tieba_client.get_latest_creator_info(creator_url)
+                or self._page_extractor.extract_creator_info(creator_page_html_content)
             )
             if creator_info:
                 utils.logger.info(
@@ -387,6 +388,7 @@ class TieBaCrawler(AbstractCrawler):
                         callback=tieba_store.batch_update_tieba_notes,
                         max_note_count=config.CRAWLER_MAX_NOTES_COUNT,
                         creator_page_html_content=creator_page_html_content,
+                        creator_url=creator_url,
                     )
                 )
 
