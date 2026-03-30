@@ -739,6 +739,7 @@ class BaiduTieBaClient(AbstractApiClient):
         """
         # Baidu Tieba is special, the first 10 posts are directly displayed on the homepage and need special handling, cannot be obtained through API
         result: List[TiebaNote] = []
+        seen_thread_ids: set[str] = set()
         thread_id_list = self.get_latest_creator_thread_ids()
         if not thread_id_list and creator_page_html_content:
             thread_id_list = self._page_extractor.extract_tieba_thread_id_list_from_creator_page(creator_page_html_content)
@@ -749,9 +750,13 @@ class BaiduTieBaClient(AbstractApiClient):
                 thread_id_list = thread_id_list[:max_note_count]
             notes: List[TiebaNote] = []
             for thread_id in thread_id_list:
+                thread_id = str(thread_id or "").strip()
+                if not thread_id or thread_id in seen_thread_ids:
+                    continue
                 try:
                     note = await self.get_note_by_id(thread_id)
                     notes.append(note)
+                    seen_thread_ids.add(thread_id)
                 except Exception as e:
                     utils.logger.error(
                         f"[BaiduTieBaClient.get_all_notes_by_creator] Skip thread {thread_id} because detail fetch failed: {e}"
@@ -759,12 +764,12 @@ class BaiduTieBaClient(AbstractApiClient):
             if callback:
                 await callback(notes)
             result.extend(notes)
-            return result
 
         notes_has_more = 1
-        page_number = 1
+        page_number = 2 if seen_thread_ids else 1
         page_per_count = 20
-        total_get_count = 0
+        total_get_count = len(result)
+        seen_page_signatures: set[tuple[str, ...]] = set()
         while notes_has_more == 1 and (max_note_count == 0 or total_get_count < max_note_count):
             notes_res = await self.get_notes_by_creator(user_name, page_number)
             if not notes_res or notes_res.get("no") != 0:
@@ -775,14 +780,33 @@ class BaiduTieBaClient(AbstractApiClient):
             notes = notes_data["thread_list"]
             utils.logger.info(f"[WeiboClient.get_all_notes_by_creator] got user_name:{user_name} notes len : {len(notes)}")
 
+            page_thread_ids = tuple(str(note.get("thread_id") or "") for note in notes if note.get("thread_id"))
+            if not page_thread_ids:
+                utils.logger.info(
+                    f"[BaiduTieBaClient.get_all_notes_by_creator] page {page_number} has no thread ids, stop pagination"
+                )
+                break
+            if page_thread_ids in seen_page_signatures:
+                utils.logger.info(
+                    f"[BaiduTieBaClient.get_all_notes_by_creator] page {page_number} repeats previous page data, stop pagination"
+                )
+                break
+            seen_page_signatures.add(page_thread_ids)
+
             detail_notes: List[TiebaNote] = []
+            new_thread_count = 0
             for note in notes:
                 thread_id = str(note.get("thread_id") or "")
-                if not thread_id:
+                if not thread_id or thread_id in seen_thread_ids:
                     continue
                 try:
                     detail_note = await self.get_note_by_id(thread_id)
                     detail_notes.append(detail_note)
+                    seen_thread_ids.add(thread_id)
+                    new_thread_count += 1
+                    total_get_count += 1
+                    if max_note_count > 0 and total_get_count >= max_note_count:
+                        break
                 except Exception as e:
                     utils.logger.error(
                         f"[BaiduTieBaClient.get_all_notes_by_creator] Skip thread {thread_id} because detail fetch failed: {e}"
@@ -791,6 +815,12 @@ class BaiduTieBaClient(AbstractApiClient):
                 await callback(detail_notes)
             await asyncio.sleep(crawl_interval)
             result.extend(detail_notes)
+            if new_thread_count == 0:
+                utils.logger.info(
+                    f"[BaiduTieBaClient.get_all_notes_by_creator] page {page_number} has no new threads, stop pagination"
+                )
+                break
+            if max_note_count > 0 and total_get_count >= max_note_count:
+                break
             page_number += 1
-            total_get_count += page_per_count
         return result
