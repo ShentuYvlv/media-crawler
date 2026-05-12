@@ -59,37 +59,6 @@ class ExcelStoreBase(AbstractStore):
     # Class-level singleton management
     _instances: Dict[str, "ExcelStoreBase"] = {}
     _lock = threading.Lock()
-    CONTENT_HEADERS = [
-        "平台",
-        "网站链接",
-        "发布时间",
-        "数据",
-        "用户昵称",
-        "具体内容",
-        "帖子详情",
-        "评论",
-        "作品类型",
-        "作品标题",
-        "点赞数量",
-        "评论数量",
-        "分享数量",
-        "用户ID",
-        "帖子ID",
-        "标签",
-        "更新时间",
-        "是否视频",
-    ]
-    PLATFORM_LABELS = {
-        "xhs": "小红书",
-        "douyin": "抖音",
-        "dy": "抖音",
-        "bilibili": "B站",
-        "weibo": "微博",
-        "tieba": "贴吧",
-        "kuaishou": "快手",
-        "ks": "快手",
-        "zhihu": "知乎",
-    }
 
     @classmethod
     def get_instance(cls, platform: str, crawler_type: str) -> "ExcelStoreBase":
@@ -168,8 +137,6 @@ class ExcelStoreBase(AbstractStore):
         # Optional sheets for platforms that need them (e.g., Bilibili)
         self.contacts_sheet = None
         self.dynamics_sheet = None
-        self.content_row_by_post_id: Dict[str, int] = {}
-        self.comment_texts_by_post_id: Dict[str, List[str]] = {}
 
         # Generate filename
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -267,133 +234,6 @@ class ExcelStoreBase(AbstractStore):
                 bottom=Side(style='thin')
             )
 
-    def _set_cell_value(self, sheet, row_num: int, headers: List[str], header: str, value: Any):
-        if header not in headers:
-            return
-        col_num = headers.index(header) + 1
-        cell = sheet.cell(row=row_num, column=col_num)
-        if isinstance(value, (list, dict)):
-            value = str(value)
-        elif value is None:
-            value = ""
-        cell.value = value
-        cell.alignment = Alignment(vertical="top", wrap_text=True)
-        cell.border = Border(
-            left=Side(style='thin'),
-            right=Side(style='thin'),
-            top=Side(style='thin'),
-            bottom=Side(style='thin')
-        )
-
-    def _platform_name(self) -> str:
-        return self.PLATFORM_LABELS.get(self.platform, self.platform)
-
-    @staticmethod
-    def _pick_first(data: Dict[str, Any], *keys: str) -> Any:
-        for key in keys:
-            value = data.get(key)
-            if value not in (None, ""):
-                return value
-        return ""
-
-    @staticmethod
-    def _format_time_value(value: Any) -> str:
-        if value in (None, ""):
-            return ""
-
-        try:
-            if isinstance(value, str):
-                stripped = value.strip()
-                if stripped.isdigit():
-                    value = int(stripped)
-                else:
-                    return stripped
-
-            if isinstance(value, (int, float)):
-                timestamp = int(value)
-                if timestamp > 10**12:
-                    timestamp = timestamp // 1000
-                dt = datetime.fromtimestamp(timestamp)
-                return (
-                    f"{dt.year:04d}年{dt.month:02d}月{dt.day:02d}日 "
-                    f"{dt.hour:02d}:{dt.minute:02d}:{dt.second:02d}"
-                )
-        except (ValueError, TypeError, OSError):
-            return str(value)
-
-        return str(value)
-
-    @staticmethod
-    def _stringify(value: Any) -> str:
-        if value in (None, ""):
-            return ""
-        if isinstance(value, list):
-            return " | ".join(str(item) for item in value if item not in (None, ""))
-        if isinstance(value, dict):
-            return str(value)
-        return str(value)
-
-    def _build_data_summary(self, content_item: Dict[str, Any]) -> str:
-        metrics = [
-            ("点赞", self._pick_first(content_item, "liked_count", "like_count")),
-            ("评论", self._pick_first(content_item, "comment_count", "video_comment", "total_replay_num")),
-            ("收藏", self._pick_first(content_item, "collected_count", "video_favorite_count", "favour_count")),
-            ("分享", self._pick_first(content_item, "share_count", "video_share_count")),
-            ("投币", self._pick_first(content_item, "video_coin_count")),
-            ("弹幕", self._pick_first(content_item, "video_danmaku")),
-            ("播放", self._pick_first(content_item, "video_play_count", "view_count")),
-        ]
-        parts = [f"{label} {value}" for label, value in metrics if value not in (None, "")]
-        return " | ".join(parts)
-
-    def _normalize_content_item(self, content_item: Dict[str, Any]) -> Dict[str, Any]:
-        title = self._stringify(self._pick_first(content_item, "title", "name"))
-        body = self._stringify(self._pick_first(content_item, "desc", "content", "text", "summary", "title"))
-        publish_time = self._format_time_value(
-            self._pick_first(content_item, "create_time", "time", "publish_time", "create_at", "pubdate")
-        )
-        update_time = self._format_time_value(
-            self._pick_first(content_item, "last_update_time", "last_modify_ts", "modify_time", "update_time")
-        )
-        website_link = self._stringify(
-            self._pick_first(content_item, "note_url", "aweme_url", "video_url", "url", "link")
-        )
-        post_id = self._stringify(
-            self._pick_first(content_item, "note_id", "aweme_id", "video_id", "content_id", "id")
-        )
-        tag_text = self._stringify(self._pick_first(content_item, "tag_list", "tags", "topics"))
-        content_type = self._stringify(
-            self._pick_first(content_item, "type", "aweme_type", "video_type", "content_type")
-        )
-        is_video = "是" if self._pick_first(
-            content_item,
-            "video_url",
-            "video_download_url",
-            "video_cover_url",
-            "cover_url",
-        ) not in ("", None) or content_type == "video" else "否"
-
-        return {
-            "平台": self._platform_name(),
-            "网站链接": website_link,
-            "发布时间": publish_time,
-            "数据": self._build_data_summary(content_item),
-            "用户昵称": self._stringify(self._pick_first(content_item, "nickname", "user_name", "author_name", "name")),
-            "具体内容": body,
-            "帖子详情": self._stringify(self._pick_first(content_item, "detail_content", "desc", "content", "text", "summary", "title")),
-            "评论": self._stringify(self._pick_first(content_item, "comments")),
-            "作品类型": content_type,
-            "作品标题": title,
-            "点赞数量": self._pick_first(content_item, "liked_count", "like_count"),
-            "评论数量": self._pick_first(content_item, "comment_count", "video_comment", "total_replay_num"),
-            "分享数量": self._pick_first(content_item, "share_count", "video_share_count"),
-            "用户ID": self._stringify(self._pick_first(content_item, "user_id", "uid", "mid")),
-            "帖子ID": post_id,
-            "标签": tag_text,
-            "更新时间": update_time,
-            "是否视频": is_video,
-        }
-
     async def store_content(self, content_item: Dict):
         """
         Store content data to Excel
@@ -401,8 +241,8 @@ class ExcelStoreBase(AbstractStore):
         Args:
             content_item: Content data dictionary
         """
-        headers = self.CONTENT_HEADERS
-        normalized_item = self._normalize_content_item(content_item)
+        # Define headers (customize based on platform)
+        headers = list(content_item.keys())
 
         # Write headers if first time
         if not self.contents_headers_written:
@@ -410,19 +250,7 @@ class ExcelStoreBase(AbstractStore):
             self.contents_headers_written = True
 
         # Write data row
-        self._write_row(self.contents_sheet, normalized_item, headers)
-        row_num = self.contents_sheet.max_row
-        if normalized_item.get("帖子ID"):
-            self.content_row_by_post_id[normalized_item["帖子ID"]] = row_num
-            existing_comments = self.comment_texts_by_post_id.get(normalized_item["帖子ID"], [])
-            if existing_comments:
-                self._set_cell_value(
-                    self.contents_sheet,
-                    row_num,
-                    headers,
-                    "评论",
-                    "\n".join(existing_comments),
-                )
+        self._write_row(self.contents_sheet, content_item, headers)
 
         # Get ID from various possible field names
         content_id = content_item.get('note_id') or content_item.get('aweme_id') or content_item.get('video_id') or content_item.get('content_id') or 'N/A'
@@ -445,28 +273,6 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.comments_sheet, comment_item, headers)
-
-        note_id = str(comment_item.get("note_id") or comment_item.get("aweme_id") or comment_item.get("video_id") or comment_item.get("content_id") or "")
-        if note_id:
-            comment_line = self._stringify(
-                self._pick_first(comment_item, "content", "text", "desc", "comment")
-            )
-            nickname = self._stringify(
-                self._pick_first(comment_item, "user_nickname", "nickname", "user_name", "author_name", "name")
-            )
-            if nickname and comment_line:
-                comment_line = f"{nickname}: {comment_line}"
-            if comment_line:
-                self.comment_texts_by_post_id.setdefault(note_id, []).append(comment_line)
-                row_num = self.content_row_by_post_id.get(note_id)
-                if row_num:
-                    self._set_cell_value(
-                        self.contents_sheet,
-                        row_num,
-                        self.CONTENT_HEADERS,
-                        "评论",
-                        "\n".join(self.comment_texts_by_post_id[note_id]),
-                    )
 
         utils.logger.info(f"[ExcelStoreBase] Stored comment to Excel: {comment_item.get('comment_id', 'N/A')}")
 

@@ -91,12 +91,6 @@ class TestExcelStoreBase:
         # Verify data was written
         assert excel_store.contents_sheet.max_row == 2  # Header + 1 data row
         assert excel_store.contents_headers_written is True
-        assert excel_store.contents_sheet.cell(row=1, column=1).value == "平台"
-        assert excel_store.contents_sheet.cell(row=1, column=2).value == "网站链接"
-        assert excel_store.contents_sheet.cell(row=1, column=6).value == "具体内容"
-        assert excel_store.contents_sheet.cell(row=2, column=1).value == "test"
-        assert excel_store.contents_sheet.cell(row=2, column=5).value == "TestUser"
-        assert excel_store.contents_sheet.cell(row=2, column=10).value == "Test Title"
 
     @pytest.mark.asyncio
     async def test_store_comment(self, excel_store):

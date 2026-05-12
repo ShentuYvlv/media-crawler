@@ -18,10 +18,15 @@
 # 使用本代码即表示您同意遵守上述原则和LICENSE中的所有条款。
 
 # Basic configuration
-PLATFORM = "tieba"  # Platform, xhs | dy | ks | bili | wb | tieba | zhihu
+PLATFORM = "xhs"  # Platform, xhs | dy | ks | bili | wb | tieba | zhihu
+
+# 是否使用海外版小红书 (rednote.com)
+# 开启后 API 走 webapi.rednote.com，cookie 域使用 .rednote.com
+XHS_INTERNATIONAL = False
+
 KEYWORDS = "编程副业,编程兼职"  # Keyword search configuration, separated by English commas
-LOGIN_TYPE = "cookie"  # qrcode or phone or cookie
-COOKIES = "BIDUPSID=A8F1A672FEC67B5E341188F8DC016780; PSTM=1759630154; BAIDUID=A8F1A672FEC67B5EDC96FA7B2AC7A531:FG=1; BDUSS=y1RVHFDeWxKRDhJMklpaEx1RHBWZjZLSjFNVU82a3lnR2hmSUlWeUFRazVZUWxwSVFBQUFBJCQAAAAAAAAAAAEAAAANQos4YWpzZ3hoZGlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnU4Wg51OFoZ; BDUSS_BFESS=y1RVHFDeWxKRDhJMklpaEx1RHBWZjZLSjFNVU82a3lnR2hmSUlWeUFRazVZUWxwSVFBQUFBJCQAAAAAAAAAAAEAAAANQos4YWpzZ3hoZGlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnU4Wg51OFoZ; MAWEBCUID=web_SLBeYpsfiKwyNMbragaiPDMwuVrOKlUMXQLmcHzGKVQBtqNLPP; H_WISE_SIDS_BFESS=63141_66691_67085_67154_67226_67294_67318_67316_67314_67322_67321_67424_67447_67500_67555_67533_67600_67614_67629_67593_67608_67634_67644_67717_67746_67751_67791_67804_67822_67824_67827_67833; BAIDUID_BFESS=A8F1A672FEC67B5EDC96FA7B2AC7A531:FG=1; ZFY=xtJmiMyawHjM0nQi0V1tXOYXCsFrd53o0fL7ss5J0Oo:C; H_PS_PSSID=63141_67862_67885_67941_67967_68056_67986_68002_68131_68142_68149_68145_68152_68139_68166_68193_68226_68256_68265_68296_68309_68349_68378_68408_68398_68436_68456_68440_68461_68483; H_WISE_SIDS=63141_67862_67885_67941_67967_68056_67986_68002_68131_68142_68149_68145_68152_68139_68166_68193_68226_68256_68265_68296_68309_68349_68378_68408_68398_68436_68456_68440_68461_68483; STOKEN=46eefd74fd5f810c82006b94c67fd2544b9dad2c9f7cbd3377bfe0ea0ec681d7; __bid_n=19d1e15d3cb8048bd2773d; BAIDU_WISE_UID=wapp_1774326240451_440; TIEBAUID=9d2ff1eb8b167747e01c2f8c; Hm_lvt_292b2e1608b0823c1cb6beef7243ef34=1774326473; USER_JUMP=-1; TIEBA_NEW_PC=1; TIEBA_SID=H4sIAAAAAAAAAzO0NDW3NIo30jUyNLOwNAczzA1NjONNABchVDgaAAAA; ab_sr=1.0.1_ZmM2NzJkMDIyNTlkM2FhMTQ5YjVjMTE4ZmU3MmQyYjQxZjEwMzkyMjY2NmY4OGYxYTM3YWI2NmY2YzJmMzdhZDRhZjc0ZDc5ZTZlYTc2MmQwNjNiYTY0MDljNjMzNDNmZjk3YTBlNDJkOTQ4NGNhODM3MmRjYzkwMDg4NzIyZmEzMTliMTkzYThkOGY3ZWIzZGI3Y2E4MjEyNTVhMGYxMTU0ZTA5M2VjNjNhOTc3YjU0NTg4NzEwMGQ1OGM5Yjc0"
+LOGIN_TYPE = "qrcode"  # qrcode or phone or cookie
+COOKIES = ""
 CRAWLER_TYPE = (
     "search"  # Crawling type, search (keyword search) | detail (post details) | creator (creator homepage data)
 )
@@ -43,31 +48,38 @@ HEADLESS = False
 # Whether to save login status
 SAVE_LOGIN_STATE = True
 
-# ==================== CDP (Chrome DevTools Protocol) Configuration ====================
-# Whether to enable CDP mode - use the user's existing Chrome/Edge browser to crawl, providing better anti-detection capabilities
-# Once enabled, the user's Chrome/Edge browser will be automatically detected and started, and controlled through the CDP protocol.
-# This method uses the real browser environment, including the user's extensions, cookies and settings, greatly reducing the risk of detection.
+# ==================== CDP (Chrome DevTools Protocol) 配置 ====================
+# 是否启用 CDP 模式 - 使用用户本地的 Chrome/Edge 浏览器进行爬取，具有更好的反检测能力
+# 开启后，会自动检测并启动用户的 Chrome/Edge 浏览器，通过 CDP 协议进行控制
+# 该方式使用真实浏览器环境，包括用户的扩展、Cookie 和设置，大幅降低被风控检测的风险
 ENABLE_CDP_MODE = True
 
-# CDP debug port, used to communicate with the browser
-# If the port is occupied, the system will automatically try the next available port
+# CDP 调试端口，用于与浏览器通信
+# 如果端口被占用，系统会自动尝试下一个可用端口
 CDP_DEBUG_PORT = 9222
 
-# Custom browser path (optional)
-# If it is empty, the system will automatically detect the installation path of Chrome/Edge
-# Windows example: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-# macOS example: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# 自定义浏览器路径（可选）
+# 如果为空，系统会自动检测 Chrome/Edge 的安装路径
+# Windows 示例: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+# macOS 示例: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 CUSTOM_BROWSER_PATH = ""
 
-# Whether to enable headless mode in CDP mode
-# NOTE: Even if set to True, some anti-detection features may not work well in headless mode
+# 是否在 CDP 模式下启用无头模式
+# 注意：即使设置为 True，某些反检测功能在无头模式下可能无法正常工作
 CDP_HEADLESS = False
 
-# Browser startup timeout (seconds)
+# 浏览器启动超时时间（秒）
 BROWSER_LAUNCH_TIMEOUT = 60
 
-# Whether to automatically close the browser when the program ends
-# Set to False to keep the browser running for easy debugging
+# 是否连接用户已打开的浏览器，而不是启动新的浏览器
+# 开启后，程序会连接一个已经启用了远程调试的浏览器
+# 用户需要在 Chrome 中开启远程调试：chrome://inspect/#remote-debugging
+# 或者使用命令行参数启动 Chrome：--remote-debugging-port=9222
+# 这种方式反检测效果最好，因为直接使用用户真实浏览器的所有 Cookie、扩展和浏览历史
+CDP_CONNECT_EXISTING = True
+
+# 程序结束时是否自动关闭浏览器
+# 设置为 False 可以保持浏览器运行，方便调试
 AUTO_CLOSE_BROWSER = True
 
 # Data saving type option configuration, supports: csv, db, json, jsonl, sqlite, excel, postgres. It is best to save to DB, with deduplication function.
