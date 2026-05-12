@@ -32,6 +32,7 @@ Provides Excel export functionality for crawled data with formatted sheets
 """
 
 import threading
+import time
 from datetime import datetime
 from typing import Dict, List, Any
 from pathlib import Path
@@ -59,6 +60,7 @@ class ExcelStoreBase(AbstractStore):
     # Class-level singleton management
     _instances: Dict[str, "ExcelStoreBase"] = {}
     _lock = threading.Lock()
+    _checkpoint_interval_seconds = 120
 
     @classmethod
     def get_instance(cls, platform: str, crawler_type: str) -> "ExcelStoreBase":
@@ -141,6 +143,7 @@ class ExcelStoreBase(AbstractStore):
         # Generate filename
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.filename = self.data_dir / f"{platform}_{crawler_type}_{timestamp}.xlsx"
+        self._last_checkpoint_ts = 0.0
 
         utils.logger.info(f"[ExcelStoreBase] Initialized Excel export to: {self.filename}")
 
@@ -234,6 +237,25 @@ class ExcelStoreBase(AbstractStore):
                 bottom=Side(style='thin')
             )
 
+    def _checkpoint_save(self, force: bool = False):
+        """
+        Persist current workbook state periodically.
+
+        First write is saved immediately. After that, the workbook is saved at
+        most once every `_checkpoint_interval_seconds`, unless `force=True`.
+        """
+        now = time.monotonic()
+        if not force and self._last_checkpoint_ts:
+            if now - self._last_checkpoint_ts < self._checkpoint_interval_seconds:
+                return
+        try:
+            self.workbook.save(self.filename)
+            self._last_checkpoint_ts = now
+            utils.logger.debug(f"[ExcelStoreBase] Checkpoint saved: {self.filename}")
+        except Exception as e:
+            utils.logger.error(f"[ExcelStoreBase] Error during checkpoint save: {e}")
+            raise
+
     async def store_content(self, content_item: Dict):
         """
         Store content data to Excel
@@ -251,6 +273,7 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.contents_sheet, content_item, headers)
+        self._checkpoint_save()
 
         # Get ID from various possible field names
         content_id = content_item.get('note_id') or content_item.get('aweme_id') or content_item.get('video_id') or content_item.get('content_id') or 'N/A'
@@ -273,6 +296,7 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.comments_sheet, comment_item, headers)
+        self._checkpoint_save()
 
         utils.logger.info(f"[ExcelStoreBase] Stored comment to Excel: {comment_item.get('comment_id', 'N/A')}")
 
@@ -293,6 +317,7 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.creators_sheet, creator, headers)
+        self._checkpoint_save()
 
         utils.logger.info(f"[ExcelStoreBase] Stored creator to Excel: {creator.get('user_id', 'N/A')}")
 
@@ -317,6 +342,7 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.contacts_sheet, contact_item, headers)
+        self._checkpoint_save()
 
         utils.logger.info(f"[ExcelStoreBase] Stored contact to Excel: up_id={contact_item.get('up_id', 'N/A')}, fan_id={contact_item.get('fan_id', 'N/A')}")
 
@@ -341,6 +367,7 @@ class ExcelStoreBase(AbstractStore):
 
         # Write data row
         self._write_row(self.dynamics_sheet, dynamic_item, headers)
+        self._checkpoint_save()
 
         utils.logger.info(f"[ExcelStoreBase] Stored dynamic to Excel: {dynamic_item.get('dynamic_id', 'N/A')}")
 
@@ -377,6 +404,7 @@ class ExcelStoreBase(AbstractStore):
 
             # Save workbook
             self.workbook.save(self.filename)
+            self._last_checkpoint_ts = time.monotonic()
             utils.logger.info(f"[ExcelStoreBase] Excel file saved successfully: {self.filename}")
 
         except Exception as e:
