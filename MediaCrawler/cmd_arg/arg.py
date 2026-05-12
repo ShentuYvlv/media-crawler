@@ -151,8 +151,26 @@ def _normalize_tieba_creator_url(value: str) -> str:
     return f"https://tieba.baidu.com/home/main?id={value}"
 
 
+def _normalize_tieba_name_or_url(value: str) -> str:
+    """Accept a Tieba forum URL or a Tieba name."""
+    value = value.strip()
+    if not value:
+        return ""
+    if value.startswith(("http://", "https://")):
+        parsed = __import__("urllib.parse", fromlist=["urlparse", "parse_qs", "unquote"])
+        query = parsed.parse_qs(parsed.urlparse(value).query)
+        kw = query.get("kw", [""])[0]
+        value = parsed.unquote(kw or "").strip()
+    if value and not value.endswith("吧"):
+        value += "吧"
+    return value
+
+
 async def parse_cmd(argv: Optional[Sequence[str]] = None):
     """Parse command line arguments using Typer."""
+    cli_args = list(_normalize_argv(argv))
+    keywords_explicitly_provided = "--keywords" in cli_args
+    cli_args = _inject_init_db_default(cli_args)
 
     app = typer.Typer(add_completion=False)
 
@@ -267,6 +285,14 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
                 rich_help_panel="Basic Configuration",
             ),
         ] = "",
+        tieba_url: Annotated[
+            str,
+            typer.Option(
+                "--tieba_url",
+                help="Tieba forum URL list in search mode, multiple URLs separated by commas",
+                rich_help_panel="Basic Configuration",
+            ),
+        ] = "",
         max_comments_count_singlenotes: Annotated[
             int,
             typer.Option(
@@ -275,6 +301,14 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
                 rich_help_panel="Comment Configuration",
             ),
         ] = config.CRAWLER_MAX_COMMENTS_COUNT_SINGLENOTES,
+        max_notes_count: Annotated[
+            int,
+            typer.Option(
+                "--max_notes_count",
+                help="Maximum number of posts/videos to crawl; 0 means crawl until no more results",
+                rich_help_panel="Basic Configuration",
+            ),
+        ] = config.CRAWLER_MAX_NOTES_COUNT,
         max_concurrency_num: Annotated[
             int,
             typer.Option(
@@ -328,6 +362,7 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
         # Parse specified_id and creator_id into lists
         specified_id_list = [id.strip() for id in specified_id.split(",") if id.strip()] if specified_id else []
         creator_id_list = [id.strip() for id in creator_id.split(",") if id.strip()] if creator_id else []
+        tieba_url_list = [item.strip() for item in tieba_url.split(",") if item.strip()] if tieba_url else []
 
         # override global config
         config.PLATFORM = platform.value
@@ -342,6 +377,7 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
         config.SAVE_DATA_OPTION = save_data_option.value
         config.COOKIES = cookies
         config.CRAWLER_MAX_COMMENTS_COUNT_SINGLENOTES = max_comments_count_singlenotes
+        config.CRAWLER_MAX_NOTES_COUNT = max_notes_count
         config.MAX_CONCURRENCY_NUM = max_concurrency_num
         config.SAVE_DATA_PATH = save_data_path
         config.ENABLE_IP_PROXY = enable_ip_proxy_value
@@ -381,6 +417,14 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
                     _normalize_tieba_creator_url(item) for item in creator_id_list
                 ]
 
+        if platform == PlatformEnum.TIEBA and tieba_url_list:
+            config.TIEBA_NAME_LIST = [
+                name for name in (_normalize_tieba_name_or_url(item) for item in tieba_url_list)
+                if name
+            ]
+            if not keywords_explicitly_provided:
+                config.KEYWORDS = ""
+
         return SimpleNamespace(
             platform=config.PLATFORM,
             lt=config.LOGIN_TYPE,
@@ -395,12 +439,11 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
             cookies=config.COOKIES,
             specified_id=specified_id,
             creator_id=creator_id,
+            tieba_url=tieba_url,
+            max_notes_count=config.CRAWLER_MAX_NOTES_COUNT,
         )
 
     command = typer.main.get_command(app)
-
-    cli_args = _normalize_argv(argv)
-    cli_args = _inject_init_db_default(cli_args)
 
     try:
         result = command.main(args=cli_args, standalone_mode=False)

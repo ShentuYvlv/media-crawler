@@ -20,7 +20,9 @@
 
 import asyncio
 import functools
+import json
 import sys
+from pathlib import Path
 from typing import Optional
 
 from playwright.async_api import BrowserContext, Page
@@ -33,6 +35,98 @@ from tools import utils
 
 
 class BaiduTieBaLogin(AbstractLogin):
+    @staticmethod
+    def _normalize_same_site(value: Optional[str]) -> Optional[str]:
+        if not value:
+            return None
+        normalized = str(value).strip().lower()
+        if normalized in {"none", "no_restriction"}:
+            return "None"
+        if normalized == "lax":
+            return "Lax"
+        if normalized == "strict":
+            return "Strict"
+        return None
+
+    @classmethod
+    def _build_playwright_cookie(cls, raw_cookie: dict) -> Optional[dict]:
+        name = str(raw_cookie.get("name") or "").strip()
+        if not name:
+            return None
+
+        value = str(raw_cookie.get("value") or "")
+        domain = str(raw_cookie.get("domain") or "").strip()
+        path = str(raw_cookie.get("path") or "/")
+        secure = bool(raw_cookie.get("secure", False))
+        host_only = bool(raw_cookie.get("hostOnly", False))
+
+        cookie = {
+            "name": name,
+            "value": value,
+            "path": path,
+            "secure": secure,
+            "httpOnly": bool(raw_cookie.get("httpOnly", False)),
+        }
+
+        same_site = cls._normalize_same_site(raw_cookie.get("sameSite"))
+        if same_site:
+            cookie["sameSite"] = same_site
+
+        expires = raw_cookie.get("expirationDate")
+        if expires not in (None, "", 0):
+            try:
+                cookie["expires"] = float(expires)
+            except (TypeError, ValueError):
+                pass
+
+        if host_only and domain:
+            scheme = "https" if secure else "http"
+            cookie["url"] = f"{scheme}://{domain}{path}"
+        else:
+            cookie["domain"] = domain or ".baidu.com"
+
+        return cookie
+
+    @classmethod
+    def _load_cookie_file(cls, cookie_path: Path) -> list[dict]:
+        raw_text = cookie_path.read_text(encoding="utf-8")
+        payload = json.loads(raw_text)
+        if not isinstance(payload, list):
+            raise ValueError("cookie json file must contain a JSON array")
+
+        cookies: list[dict] = []
+        for item in payload:
+            if not isinstance(item, dict):
+                continue
+            cookie = cls._build_playwright_cookie(item)
+            if cookie:
+                cookies.append(cookie)
+        return cookies
+
+    @classmethod
+    def _load_cookies_for_context(cls, cookie_str: str) -> list[dict]:
+        cookie_str = (cookie_str or "").strip()
+        if not cookie_str:
+            return []
+
+        cookie_path = Path(cookie_str).expanduser()
+        if cookie_path.is_file():
+            utils.logger.info(
+                f"[BaiduTieBaLogin.login_by_cookies] Loading cookies from file: {cookie_path}"
+            )
+            return cls._load_cookie_file(cookie_path)
+
+        cookies: list[dict] = []
+        for key, value in utils.convert_str_cookie_to_dict(cookie_str).items():
+            cookies.append(
+                {
+                    "name": key,
+                    "value": value,
+                    "domain": ".baidu.com",
+                    "path": "/",
+                }
+            )
+        return cookies
 
     def __init__(self,
                  login_type: str,
@@ -123,10 +217,12 @@ class BaiduTieBaLogin(AbstractLogin):
     async def login_by_cookies(self):
         """login baidutieba website by cookies"""
         utils.logger.info("[BaiduTieBaLogin.login_by_cookies] Begin login baidutieba by cookie ...")
-        for key, value in utils.convert_str_cookie_to_dict(self.cookie_str).items():
-            await self.browser_context.add_cookies([{
-                'name': key,
-                'value': value,
-                'domain': ".baidu.com",
-                'path': "/"
-            }])
+        cookies = self._load_cookies_for_context(self.cookie_str)
+        if not cookies:
+            utils.logger.warning("[BaiduTieBaLogin.login_by_cookies] Cookie input is empty, skipping cookie injection")
+            return
+
+        await self.browser_context.add_cookies(cookies)
+        utils.logger.info(
+            f"[BaiduTieBaLogin.login_by_cookies] Injected {len(cookies)} cookies into browser context"
+        )
