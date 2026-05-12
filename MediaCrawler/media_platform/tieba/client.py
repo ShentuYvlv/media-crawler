@@ -595,49 +595,38 @@ class BaiduTieBaClient(AbstractApiClient):
         utils.logger.info(f"[BaiduTieBaClient.get_comments_all_sub_comments] Total retrieved {len(all_sub_comments)} sub-comments")
         return all_sub_comments
 
-    async def get_notes_by_tieba_name(self, tieba_name: str, page_num: int) -> List[TiebaNote]:
+    async def get_notes_by_tieba_name(self, tieba_name: str, page_num: int) -> tuple[List[TiebaNote], bool]:
         """
-        Get post list by Tieba name from current PC forum JSON API.
+        Get post list by Tieba name from the rendered PC forum page.
         Args:
             tieba_name: Tieba name
-            page_num: Page number
+            page_num: Tieba forum page offset (`pn=0,50,100...`)
 
         Returns:
-            List[TiebaNote]: Post list
+            tuple[List[TiebaNote], bool]: Post list and whether the forum page has a next page
         """
         if not self.playwright_page:
             utils.logger.error("[BaiduTieBaClient.get_notes_by_tieba_name] playwright_page is None, cannot use browser mode")
             raise Exception("playwright_page is required for browser-based tieba note fetching")
 
-        page_size = 30
-        api_page = page_num // page_size + 1
-        tbs = await self._get_pc_tbs()
+        page_offset = max(int(page_num), 0)
+        tieba_keyword = (tieba_name or "").removesuffix("吧")
+        forum_url = f"{self._host}/f?kw={quote(tieba_keyword)}&ie=utf-8&pn={page_offset}"
+        forum_page_num = page_offset // 50 + 1
         utils.logger.info(
-            f"[BaiduTieBaClient.get_notes_by_tieba_name] Accessing Tieba FRS API, "
-            f"tieba_name: {tieba_name}, page: {api_page}"
+            f"[BaiduTieBaClient.get_notes_by_tieba_name] Accessing Tieba forum page, "
+            f"tieba_name: {tieba_name}, page: {forum_page_num}, pn: {page_offset}"
         )
 
         try:
-            api_data = await self._fetch_json_by_browser(
-                "/c/f/frs/page_pc",
-                method="POST",
-                data={
-                    "kw": quote(tieba_name),
-                    "pn": api_page,
-                    "sort_type": -1,
-                    "is_newfrs": 1,
-                    "is_newfeed": 1,
-                    "rn": page_size,
-                    "rn_need": 10,
-                    "tbs": tbs,
-                    "subapp_type": "pc",
-                    "_client_type": "20",
-                },
-                use_sign=True,
+            await self.playwright_page.goto(forum_url, wait_until="domcontentloaded")
+            await asyncio.sleep(config.CRAWLER_MAX_SLEEP_SEC)
+            page_content = await self.playwright_page.content()
+            notes, has_next = self._page_extractor.extract_tieba_note_list_page(page_content)
+            utils.logger.info(
+                f"[BaiduTieBaClient.get_notes_by_tieba_name] Extracted {len(notes)} posts, has_next={has_next}"
             )
-            notes = self._page_extractor.extract_tieba_note_list_from_frs_api(api_data)[:page_size]
-            utils.logger.info(f"[BaiduTieBaClient.get_notes_by_tieba_name] Extracted {len(notes)} posts")
-            return notes
+            return notes, has_next
 
         except Exception as e:
             utils.logger.error(f"[BaiduTieBaClient.get_notes_by_tieba_name] Failed to get Tieba post list: {e}")

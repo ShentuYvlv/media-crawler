@@ -230,6 +230,15 @@ def test_extract_tieba_note_list_from_bigpipe_thread_page():
     assert notes[0].tieba_link.endswith("kw=%E7%9B%97%E5%A2%93%E7%AC%94%E8%AE%B0&ie=utf-8")
 
 
+def test_extract_tieba_note_list_page_has_next():
+    notes, has_next = TieBaExtractor().extract_tieba_note_list_page(
+        read_fixture("tieba_note_list.html")
+    )
+
+    assert len(notes) == 48
+    assert has_next is True
+
+
 def test_extract_note_detail_from_post_page():
     note = TieBaExtractor().extract_note_detail(read_fixture("note_detail.html"))
 

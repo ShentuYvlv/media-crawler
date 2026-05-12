@@ -508,6 +508,24 @@ class TieBaExtractor:
             result.append(tieba_note)
         return result
 
+    def extract_tieba_note_list_page(self, page_content: str) -> Tuple[List[TiebaNote], bool]:
+        """
+        Extract Tieba forum page posts and whether there is a next page.
+
+        The forum list page still exposes the authoritative thread list in the
+        rendered HTML. Pagination is driven by `pn=0,50,100...`, so "has next"
+        must come from the actual pager instead of inferred row counts.
+        """
+        notes = self.extract_tieba_note_list(page_content)
+        selector = Selector(text=page_content.replace("<!--", ""))
+        has_next = bool(
+            selector.xpath(
+                "//div[contains(@class, 'thread_list_bottom')]"
+                "//a[contains(concat(' ', normalize-space(@class), ' '), ' next ') and @href]"
+            )
+        )
+        return notes, has_next
+
     def extract_note_detail(self, page_content: str) -> TiebaNote:
         """
         Extract Tieba post details from post detail page

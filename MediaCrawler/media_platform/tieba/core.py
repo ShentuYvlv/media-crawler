@@ -222,7 +222,8 @@ class TieBaCrawler(AbstractCrawler):
         Returns:
 
         """
-        tieba_limit_count = 30
+        tieba_page_offset_step = 50
+        start_page = max(config.START_PAGE, 1)
         target_count = config.CRAWLER_MAX_NOTES_COUNT
         fetch_all = target_count <= 0
         for tieba_name in config.TIEBA_NAME_LIST:
@@ -230,9 +231,10 @@ class TieBaCrawler(AbstractCrawler):
                 f"[BaiduTieBaCrawler.get_specified_tieba_notes] Begin get tieba name: {tieba_name}"
             )
             fetched_count = 0
-            page_number = 0
+            seen_note_ids = set()
+            page_number = (start_page - 1) * tieba_page_offset_step
             while fetch_all or fetched_count < target_count:
-                note_list: List[TiebaNote] = (
+                note_list, has_next = (
                     await self.tieba_client.get_notes_by_tieba_name(
                         tieba_name=tieba_name, page_num=page_number
                     )
@@ -242,16 +244,28 @@ class TieBaCrawler(AbstractCrawler):
                         f"[BaiduTieBaCrawler.get_specified_tieba_notes] Get note list is empty"
                     )
                     break
+
+                raw_count = len(note_list)
+                note_list = [
+                    note for note in note_list
+                    if note.note_id and note.note_id not in seen_note_ids
+                ]
+                for note in note_list:
+                    seen_note_ids.add(note.note_id)
+
                 if not fetch_all:
                     remaining = target_count - fetched_count
                     note_list = note_list[:remaining]
 
                 utils.logger.info(
-                    f"[BaiduTieBaCrawler.get_specified_tieba_notes] tieba name: {tieba_name} note list len: {len(note_list)}"
+                    f"[BaiduTieBaCrawler.get_specified_tieba_notes] tieba name: {tieba_name} "
+                    f"raw note list len: {raw_count}, unique note list len: {len(note_list)}, has_next={has_next}"
                 )
-                await self.get_specified_notes([note.note_id for note in note_list])
-                fetched_count += len(note_list)
-                if len(note_list) < tieba_limit_count:
+                if note_list:
+                    await self.get_specified_notes([note.note_id for note in note_list])
+                    fetched_count += len(note_list)
+
+                if not has_next:
                     utils.logger.info(
                         f"[BaiduTieBaCrawler.get_specified_tieba_notes] tieba name: {tieba_name} reached last page"
                     )
@@ -261,7 +275,7 @@ class TieBaCrawler(AbstractCrawler):
                 await asyncio.sleep(config.CRAWLER_MAX_SLEEP_SEC)
                 utils.logger.info(f"[TieBaCrawler.get_specified_tieba_notes] Sleeping for {config.CRAWLER_MAX_SLEEP_SEC} seconds after processing notes from page {page_number}")
 
-                page_number += tieba_limit_count
+                page_number += tieba_page_offset_step
 
     async def get_specified_notes(
         self, note_id_list: Optional[List[str]] = None
