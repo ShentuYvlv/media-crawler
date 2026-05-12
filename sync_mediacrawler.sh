@@ -22,6 +22,11 @@ Options:
   --force           Continue even if target directory has uncommitted changes.
   -h, --help        Show this help message.
 
+Notes:
+  The following local runtime paths are always excluded from sync:
+    .git  .venv  browser_data  data  __pycache__  .DS_Store
+  So even with --delete, these local paths will be preserved.
+
 Examples:
   ./sync_mediacrawler.sh
   ./sync_mediacrawler.sh --branch main
@@ -107,6 +112,16 @@ RSYNC_ARGS=(
   -v
   --exclude
   .git
+  --exclude
+  .venv
+  --exclude
+  browser_data
+  --exclude
+  data
+  --exclude
+  __pycache__
+  --exclude
+  .DS_Store
 )
 
 if [[ "${DELETE_MODE}" -eq 1 ]]; then
@@ -118,6 +133,7 @@ rsync "${RSYNC_ARGS[@]}" "${TMP_DIR}/upstream/" "${TARGET_DIR}/"
 
 echo
 echo "sync complete."
+echo "excluded local paths: .git .venv browser_data data __pycache__ .DS_Store"
 echo "next steps:"
 echo "  cd \"${SCRIPT_DIR}\""
 echo "  git status"
